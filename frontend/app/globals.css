@@ -1,26 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* z0t Design System — Dark-first, Premium, Developer-focused */
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Base Colors */
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 240 10% 4%;
+
+    --secondary: 240 5% 12%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 5% 15%;
+    --muted-foreground: 240 5% 55%;
+
+    --accent: 270 95% 65%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5% 15%;
+    --input: 240 5% 15%;
+    --ring: 199 89% 48%;
+
+    --radius: 0.75rem;
+
+    /* Custom Tokens */
+    --glow-primary: 199 89% 48%;
+    --glow-accent: 270 95% 65%;
+    
+    --surface-glass: 240 10% 8%;
+    --surface-elevated: 240 10% 10%;
+    
+    --border-hairline: 0 0% 100% / 0.06;
+    --border-subtle: 0 0% 100% / 0.1;
+    
+    /* Framework Colors */
+    --react: 199 89% 48%;
+    --vue: 153 47% 49%;
+    --svelte: 15 100% 50%;
+    --solid: 214 100% 58%;
+    --astro: 270 95% 65%;
+
+    /* Sidebar */
+    --sidebar-background: 240 10% 5%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 199 89% 48%;
+    --sidebar-border: 240 5% 15%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme {
+  /* Core Theme Mapping */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Custom Surface & Border Mapping (Fixes the @apply errors) */
+  --color-surface-glass: hsl(var(--surface-glass));
+  --color-surface-elevated: hsl(var(--surface-elevated));
+  --color-hairline: hsla(var(--border-hairline));
+  --color-subtle-border: hsla(var(--border-subtle));
+
+  /* Framework Colors Mapping */
+  --color-react: hsl(var(--react));
+  --color-vue: hsl(var(--vue));
+  --color-svelte: hsl(var(--svelte));
+  --color-solid: hsl(var(--solid));
+  --color-astro: hsl(var(--astro));
+
+  /* Sidebar Mapping */
+  --color-sidebar: hsl(var(--sidebar-background));
+  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
+  --color-sidebar-primary: hsl(var(--sidebar-primary));
+  --color-sidebar-border: hsl(var(--sidebar-border));
+
+  --radius-xl: var(--radius);
 }
+
+@layer base {
+  * {
+    /* Fixed: Now works because --color-border is in @theme */
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    /* Fixed: Now works because --color-background is in @theme */
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Glass Card */
+  .glass-card {
+    /* Fixed: Now works because --color-surface-glass and --color-hairline are in @theme */
+    @apply bg-surface-glass backdrop-blur-xl border border-hairline rounded-xl;
+  }
+
+  /* Glow Effects - Using direct HSL to allow opacity control */
+  .glow-primary {
+    box-shadow: 0 0 60px -12px hsl(var(--glow-primary) / 0.4);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 60px -12px hsl(var(--glow-accent) / 0.4);
+  }
+
+  .glow-subtle {
+    box-shadow: 0 0 40px -15px hsl(var(--glow-primary) / 0.25);
+  }
+
+  /* Text Gradient */
+  .text-gradient-primary {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary;
+  }
+
+  /* Ambient Gradient Background */
+  .ambient-gradient {
+    background: radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--glow-primary) / 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, hsl(var(--glow-accent) / 0.08), transparent);
+  }
+
+  /* Code Block Styling */
+  .code-block {
+    @apply font-mono text-sm bg-surface-elevated rounded-lg p-4 border border-hairline overflow-x-auto;
+  }
+
+  /* Framework Badge */
+  .framework-badge {
+    @apply px-3 py-1.5 rounded-full text-xs font-medium border border-hairline backdrop-blur-sm;
+  }
+}
+

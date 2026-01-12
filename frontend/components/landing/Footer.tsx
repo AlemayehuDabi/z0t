@@ -12,7 +12,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+            <div className="w-6 h-6 rounded-md bg-linear-to-br from-primary to-accent flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-xs">z0</span>
             </div>
             <span className="font-semibold tracking-tight">z0t</span>

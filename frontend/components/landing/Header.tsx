@@ -18,7 +18,7 @@ export function Header() {
           <div className="container flex items-center justify-between h-14 px-4">
             {/* Logo */}
             <a href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-linear-to-br from-primary to-accent flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-sm">z0</span>
               </div>
               <span className="font-semibold text-lg tracking-tight">z0t</span>
