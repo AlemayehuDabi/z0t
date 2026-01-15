@@ -3,11 +3,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Lock, User, ArrowRight, Github, Chrome } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { Button } from '../ui/button';
 
 export function AuthComp() {
   const [isLogin, setIsLogin] = useState(true);
+
+  const  handleAuth = () => {
+    try {
+      
+    } catch (error) {
+      console.log("error: ", error)
+    }
+  }
 
   return (
     <div className="min-h-screen w-full bg-[#030303] flex items-center justify-center p-4 overflow-hidden relative">
@@ -15,13 +22,13 @@ export function AuthComp() {
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 blur-[120px] rounded-full" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/20 blur-[120px] rounded-full" />
 
-      <motion.div 
+      <motion.div
         layout
         className="relative w-full max-w-[1000px] min-h-[600px] bg-white/2 border border-white/5 backdrop-blur-2xl rounded-3xl flex overflow-hidden shadow-2xl"
       >
         {/* Sliding Side Overlay (The Visual Effect) */}
         <motion.div
-          animate={{ x: isLogin ? '100%' : '0%' }}
+          animate={{ x: isLogin ? '0%' : '100%' }}
           transition={{ type: "spring", stiffness: 40, damping: 15 }}
           className="absolute top-0 left-0 w-1/2 h-full bg-linear-to-br from-purple-600 via-blue-600 to-cyan-500 z-10 hidden md:flex flex-col items-center justify-center p-12 text-white"
         >
@@ -50,12 +57,14 @@ export function AuthComp() {
         </motion.div>
 
         {/* --- Forms Container --- */}
+        {/* sign up */}
         <div className="w-full md:w-1/2 h-full p-8 md:p-16 flex flex-col justify-center bg-transparent z-0">
-            <AuthForm type="signup" isVisible={isLogin} onToggle={() => setIsLogin(true)} />
+            <AuthForm type="signup" isVisible={!isLogin} onToggle={() => setIsLogin(true)} />
         </div>
         
+        {/* login */}
         <div className="w-full md:w-1/2 h-full p-8 md:p-16 flex flex-col justify-center bg-transparent z-0">
-            <AuthForm type="login" isVisible={!isLogin} onToggle={() => setIsLogin(false)} />
+            <AuthForm type="login" isVisible={isLogin} onToggle={() => setIsLogin(false)} />
         </div>
       </motion.div>
     </div>

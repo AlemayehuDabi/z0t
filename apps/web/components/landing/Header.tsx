@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Menu } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -26,24 +27,29 @@ export function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link href="/features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Features
-              </a>
-              <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              </Link>
+              <Link href="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Pricing
-              </a>
-              <a href="#docs" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              </Link>
+              <Link href="/docs" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Docs
-              </a>
+              </Link>
             </nav>
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <Github className="w-4 h-4" />
-                GitHub
-              </Button>
-              <Button size="sm">Get Started</Button>
+              <Link href="/">
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <Github className="w-4 h-4" />
+                  GitHub
+                </Button>
+              </Link>
+              
+              <Link href="/auth">
+                <Button size="sm">Get Started</Button>
+              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -64,21 +70,27 @@ export function Header() {
               className="md:hidden border-t border-hairline"
             >
               <div className="p-4 space-y-3">
-                <a href="#features" className="block text-sm text-muted-foreground hover:text-foreground">
+                <Link href="#features" className="block text-sm text-muted-foreground hover:text-foreground">
                   Features
-                </a>
-                <a href="#pricing" className="block text-sm text-muted-foreground hover:text-foreground">
+                </Link>
+                <Link href="#pricing" className="block text-sm text-muted-foreground hover:text-foreground">
                   Pricing
-                </a>
-                <a href="#docs" className="block text-sm text-muted-foreground hover:text-foreground">
+                </Link>
+                <Link href="#docs" className="block text-sm text-muted-foreground hover:text-foreground">
                   Docs
-                </a>
+                </Link>
                 <div className="pt-3 flex gap-2">
+                  <Link href="/">
                   <Button variant="ghost" size="sm" className="gap-2 flex-1">
                     <Github className="w-4 h-4" />
                     GitHub
                   </Button>
-                  <Button size="sm" className="flex-1">Get Started</Button>
+                  </Link>
+                  <Link href="/auth">
+                    <Button size="sm" className="flex-1">
+                      Get Started
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
