@@ -1,7 +1,7 @@
 {
   "name": "index",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/server.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",

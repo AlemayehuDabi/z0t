@@ -1,20 +1,36 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { InputHTMLAttributes, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Lock, User, ArrowRight, Github, Chrome } from 'lucide-react';
 import { Button } from '../ui/button';
+import { authClient } from '@/lib/auth-client';
+import { toast } from 'react-toastify';
+
+// Define the shape of your form data
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface SignInData {
+  email: string
+  password: string
+}
+
+interface SignUpData extends SignInData {
+  name: string
+}
+
+type InputGroupProps = {
+  icon: React.ReactNode;
+  label: string;
+} & InputHTMLAttributes<HTMLInputElement>;
+
 
 export function AuthComp() {
   const [isLogin, setIsLogin] = useState(true);
-
-  const  handleAuth = () => {
-    try {
-      
-    } catch (error) {
-      console.log("error: ", error)
-    }
-  }
 
   return (
     <div className="min-h-screen w-full bg-[#030303] flex items-center justify-center p-4 overflow-hidden relative">
@@ -72,6 +88,71 @@ export function AuthComp() {
 }
 
 function AuthForm({ type, isVisible, onToggle }: { type: 'login' | 'signup', isVisible: boolean, onToggle: () => void }) {
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+    password:"",
+  })
+
+  const  handleAuth = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    try {
+      if (type === "signup"){
+        console.log("Sign-up body", {
+          formData
+        })
+        await authClient.signUp.email({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        }, {
+          onSuccess: (resp) => {
+            console.log("success", resp);
+            toast.success("Successfully sign-up")
+          },
+          onError: (error) => {
+            console.log("error", error)
+            toast.error(error.error.message)
+          }
+        })
+      }else if (type === "login") {
+        console.log("Sign-in body", {
+          formData
+        })
+
+        await authClient.signIn.email({
+          email: formData.email,
+          password: formData.password
+        }, {
+          onSuccess: (resp) => {
+            console.log("success", resp);
+            toast.success("Successfully logged in!")
+          },
+          onError: (error) => {
+            console.log("error", error)
+            toast.error(error.error.message)
+          }
+        })
+      } else {
+        console.log("invalid type")
+        toast("Server Error, please try again")
+        return
+      }
+    } catch (error) {
+      console.log("error: ", error)
+      toast.error("Server Error, please try again!")
+    }
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
     <AnimatePresence mode="wait">
       {isVisible && (
@@ -89,12 +170,12 @@ function AuthForm({ type, isVisible, onToggle }: { type: 'login' | 'signup', isV
             <p className="text-gray-400">Please enter your details to proceed.</p>
           </div>
 
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-5" onSubmit={(e) => handleAuth(e)}>
             {type === 'signup' && (
-              <InputGroup icon={<User size={18} />} label="Full Name" placeholder="John Doe" />
+              <InputGroup icon={<User size={18}  />} name='name' onChange={(e)  => handleChange(e)} label="Full Name" placeholder="John Doe" />
             )}
-            <InputGroup icon={<Mail size={18} />} label="Email Address" placeholder="name@example.com" />
-            <InputGroup icon={<Lock size={18} />} label="Password" type="password" placeholder="••••••••" />
+            <InputGroup icon={<Mail size={18}  />} name='email' label="Email Address" placeholder="name@example.com" onChange={(e) => handleChange(e)} />
+            <InputGroup icon={<Lock size={18}  />} name='password' label="Password" type="password" placeholder="••••••••" onChange={(e) => handleChange(e)} />
 
             <Button 
             size="lg"
@@ -129,7 +210,7 @@ function AuthForm({ type, isVisible, onToggle }: { type: 'login' | 'signup', isV
   );
 }
 
-function InputGroup({ icon, label, type = "text", placeholder }: { icon: React.ReactNode, label: string, type?: string, placeholder: string }) {
+function InputGroup({ icon, label, type = "text", placeholder, onChange, name }: InputGroupProps) {
   return (
     <div className="space-y-2">
       <label className="text-sm font-medium text-gray-300 ml-1">{label}</label>
@@ -138,8 +219,10 @@ function InputGroup({ icon, label, type = "text", placeholder }: { icon: React.R
           {icon}
         </div>
         <input
+          name={name}
           type={type}
           placeholder={placeholder}
+          onChange={onChange}
           className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-gray-600 outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all"
         />
       </div>
