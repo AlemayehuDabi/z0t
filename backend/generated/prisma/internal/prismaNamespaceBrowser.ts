@@ -54,7 +54,11 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Project: 'Project',
+  UserPrompt: 'UserPrompt',
+  Generation: 'Generation',
+  ProjectMemory: 'ProjectMemory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -129,6 +133,54 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const ProjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  userId: 'userId',
+  frameWork: 'frameWork',
+  projectStatus: 'projectStatus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+
+
+export const UserPromptScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  role: 'role',
+  content: 'content',
+  order: 'order',
+  createdAt: 'createdAt'
+} as const
+
+export type UserPromptScalarFieldEnum = (typeof UserPromptScalarFieldEnum)[keyof typeof UserPromptScalarFieldEnum]
+
+
+export const GenerationScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  framework: 'framework',
+  type: 'type',
+  summary: 'summary',
+  createdAt: 'createdAt'
+} as const
+
+export type GenerationScalarFieldEnum = (typeof GenerationScalarFieldEnum)[keyof typeof GenerationScalarFieldEnum]
+
+
+export const ProjectMemoryScalarFieldEnum = {
+  id: 'id',
+  projectId: 'projectId',
+  key: 'key',
+  value: 'value',
+  createdAt: 'createdAt'
+} as const
+
+export type ProjectMemoryScalarFieldEnum = (typeof ProjectMemoryScalarFieldEnum)[keyof typeof ProjectMemoryScalarFieldEnum]
 
 
 export const SortOrder = {

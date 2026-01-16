@@ -24,6 +24,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  Project       Project[]
 
   @@unique([email])
   @@map("user")
@@ -75,4 +76,86 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+// frame-work enum
+enum FrameWork {
+  REACT
+  SVELTE
+  VUE
+  SOLID
+  ASTRO
+}
+
+// project status
+enum ProjectStatus {
+  ACTIVE
+  ARCHIVED
+  DELETED
+}
+
+// prompt role
+enum PromptRole {
+  USER
+  SYSTEM
+  AGENT
+}
+
+// generation type
+enum GenerationType {
+  ARCHITECTURE
+  CODE
+  REFACTOR
+  FIX
+}
+
+// project
+model Project {
+  id            String          @id
+  name          String
+  userId        String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  frameWork     FrameWork       @default(REACT)
+  projectStatus ProjectStatus   @default(ACTIVE)
+  prompts       UserPrompt[]
+  generations   Generation[]
+  memories      ProjectMemory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// user prompt
+model UserPrompt {
+  id        String     @id
+  projectId String
+  project   Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  role      PromptRole
+  content   String
+  order     Int
+
+  createdAt DateTime @default(now())
+}
+
+model Generation {
+  id        String  @id @default(uuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  framework FrameWork
+  type      GenerationType
+  summary   String?
+
+  createdAt DateTime @default(now())
+}
+
+model ProjectMemory {
+  id        String  @id @default(uuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  key   String
+  value String
+
+  createdAt DateTime @default(now())
 }

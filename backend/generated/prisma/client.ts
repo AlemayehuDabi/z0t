@@ -59,3 +59,23 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Project
+ * 
+ */
+export type Project = Prisma.ProjectModel
+/**
+ * Model UserPrompt
+ * 
+ */
+export type UserPrompt = Prisma.UserPromptModel
+/**
+ * Model Generation
+ * 
+ */
+export type Generation = Prisma.GenerationModel
+/**
+ * Model ProjectMemory
+ * 
+ */
+export type ProjectMemory = Prisma.ProjectMemoryModel

@@ -9,7 +9,40 @@
 * 🟢 You can import this file directly.
 */
 
+export const FrameWork = {
+  REACT: 'REACT',
+  SVELTE: 'SVELTE',
+  VUE: 'VUE',
+  SOLID: 'SOLID',
+  ASTRO: 'ASTRO'
+} as const
+
+export type FrameWork = (typeof FrameWork)[keyof typeof FrameWork]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const ProjectStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED',
+  DELETED: 'DELETED'
+} as const
+
+export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
+
+
+export const PromptRole = {
+  USER: 'USER',
+  SYSTEM: 'SYSTEM',
+  AGENT: 'AGENT'
+} as const
+
+export type PromptRole = (typeof PromptRole)[keyof typeof PromptRole]
+
+
+export const GenerationType = {
+  ARCHITECTURE: 'ARCHITECTURE',
+  CODE: 'CODE',
+  REFACTOR: 'REFACTOR',
+  FIX: 'FIX'
+} as const
+
+export type GenerationType = (typeof GenerationType)[keyof typeof GenerationType]
