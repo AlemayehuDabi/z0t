@@ -43,10 +43,10 @@ export type Verification = Prisma.VerificationModel
  */
 export type Project = Prisma.ProjectModel
 /**
- * Model UserPrompt
+ * Model Prompt
  * 
  */
-export type UserPrompt = Prisma.UserPromptModel
+export type Prompt = Prisma.PromptModel
 /**
  * Model Generation
  * 

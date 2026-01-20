@@ -1,6 +1,8 @@
 import { Hono } from 'hono'
 import {cors} from "hono/cors"
-import authRouter from './routes/auth';
+import authRouter from './routes/auth.route';
+import promptRoute from './routes/prompt.route';
+
 
 const app = new Hono()
 
@@ -20,6 +22,7 @@ app.get('/', (c) => {
 })
 
 app.route("/api/auth/*", authRouter)
+app.route("/api/prompt", promptRoute)
 
 
 export default app

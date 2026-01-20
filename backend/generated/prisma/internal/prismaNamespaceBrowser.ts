@@ -56,7 +56,7 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Project: 'Project',
-  UserPrompt: 'UserPrompt',
+  Prompt: 'Prompt',
   Generation: 'Generation',
   ProjectMemory: 'ProjectMemory'
 } as const
@@ -148,7 +148,7 @@ export const ProjectScalarFieldEnum = {
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
 
 
-export const UserPromptScalarFieldEnum = {
+export const PromptScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
   role: 'role',
@@ -157,15 +157,18 @@ export const UserPromptScalarFieldEnum = {
   createdAt: 'createdAt'
 } as const
 
-export type UserPromptScalarFieldEnum = (typeof UserPromptScalarFieldEnum)[keyof typeof UserPromptScalarFieldEnum]
+export type PromptScalarFieldEnum = (typeof PromptScalarFieldEnum)[keyof typeof PromptScalarFieldEnum]
 
 
 export const GenerationScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
-  framework: 'framework',
+  promptId: 'promptId',
   type: 'type',
-  summary: 'summary',
+  inputContext: 'inputContext',
+  output: 'output',
+  modelUsed: 'modelUsed',
+  tokenCount: 'tokenCount',
   createdAt: 'createdAt'
 } as const
 

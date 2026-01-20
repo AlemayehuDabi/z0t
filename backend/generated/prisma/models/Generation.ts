@@ -20,63 +20,99 @@ export type GenerationModel = runtime.Types.Result.DefaultSelection<Prisma.$Gene
 
 export type AggregateGeneration = {
   _count: GenerationCountAggregateOutputType | null
+  _avg: GenerationAvgAggregateOutputType | null
+  _sum: GenerationSumAggregateOutputType | null
   _min: GenerationMinAggregateOutputType | null
   _max: GenerationMaxAggregateOutputType | null
+}
+
+export type GenerationAvgAggregateOutputType = {
+  tokenCount: number | null
+}
+
+export type GenerationSumAggregateOutputType = {
+  tokenCount: number | null
 }
 
 export type GenerationMinAggregateOutputType = {
   id: string | null
   projectId: string | null
-  framework: $Enums.FrameWork | null
+  promptId: string | null
   type: $Enums.GenerationType | null
-  summary: string | null
+  inputContext: string | null
+  output: string | null
+  modelUsed: string | null
+  tokenCount: number | null
   createdAt: Date | null
 }
 
 export type GenerationMaxAggregateOutputType = {
   id: string | null
   projectId: string | null
-  framework: $Enums.FrameWork | null
+  promptId: string | null
   type: $Enums.GenerationType | null
-  summary: string | null
+  inputContext: string | null
+  output: string | null
+  modelUsed: string | null
+  tokenCount: number | null
   createdAt: Date | null
 }
 
 export type GenerationCountAggregateOutputType = {
   id: number
   projectId: number
-  framework: number
+  promptId: number
   type: number
-  summary: number
+  inputContext: number
+  output: number
+  modelUsed: number
+  tokenCount: number
   createdAt: number
   _all: number
 }
 
 
+export type GenerationAvgAggregateInputType = {
+  tokenCount?: true
+}
+
+export type GenerationSumAggregateInputType = {
+  tokenCount?: true
+}
+
 export type GenerationMinAggregateInputType = {
   id?: true
   projectId?: true
-  framework?: true
+  promptId?: true
   type?: true
-  summary?: true
+  inputContext?: true
+  output?: true
+  modelUsed?: true
+  tokenCount?: true
   createdAt?: true
 }
 
 export type GenerationMaxAggregateInputType = {
   id?: true
   projectId?: true
-  framework?: true
+  promptId?: true
   type?: true
-  summary?: true
+  inputContext?: true
+  output?: true
+  modelUsed?: true
+  tokenCount?: true
   createdAt?: true
 }
 
 export type GenerationCountAggregateInputType = {
   id?: true
   projectId?: true
-  framework?: true
+  promptId?: true
   type?: true
-  summary?: true
+  inputContext?: true
+  output?: true
+  modelUsed?: true
+  tokenCount?: true
   createdAt?: true
   _all?: true
 }
@@ -119,6 +155,18 @@ export type GenerationAggregateArgs<ExtArgs extends runtime.Types.Extensions.Int
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: GenerationAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: GenerationSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: GenerationMinAggregateInputType
@@ -149,6 +197,8 @@ export type GenerationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   _count?: GenerationCountAggregateInputType | true
+  _avg?: GenerationAvgAggregateInputType
+  _sum?: GenerationSumAggregateInputType
   _min?: GenerationMinAggregateInputType
   _max?: GenerationMaxAggregateInputType
 }
@@ -156,11 +206,16 @@ export type GenerationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type GenerationGroupByOutputType = {
   id: string
   projectId: string
-  framework: $Enums.FrameWork
+  promptId: string
   type: $Enums.GenerationType
-  summary: string | null
+  inputContext: string | null
+  output: string
+  modelUsed: string
+  tokenCount: number | null
   createdAt: Date
   _count: GenerationCountAggregateOutputType | null
+  _avg: GenerationAvgAggregateOutputType | null
+  _sum: GenerationSumAggregateOutputType | null
   _min: GenerationMinAggregateOutputType | null
   _max: GenerationMaxAggregateOutputType | null
 }
@@ -186,21 +241,29 @@ export type GenerationWhereInput = {
   NOT?: Prisma.GenerationWhereInput | Prisma.GenerationWhereInput[]
   id?: Prisma.StringFilter<"Generation"> | string
   projectId?: Prisma.StringFilter<"Generation"> | string
-  framework?: Prisma.EnumFrameWorkFilter<"Generation"> | $Enums.FrameWork
+  promptId?: Prisma.StringFilter<"Generation"> | string
   type?: Prisma.EnumGenerationTypeFilter<"Generation"> | $Enums.GenerationType
-  summary?: Prisma.StringNullableFilter<"Generation"> | string | null
+  inputContext?: Prisma.StringNullableFilter<"Generation"> | string | null
+  output?: Prisma.StringFilter<"Generation"> | string
+  modelUsed?: Prisma.StringFilter<"Generation"> | string
+  tokenCount?: Prisma.IntNullableFilter<"Generation"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Generation"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  prompt?: Prisma.XOR<Prisma.PromptScalarRelationFilter, Prisma.PromptWhereInput>
 }
 
 export type GenerationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  framework?: Prisma.SortOrder
+  promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  summary?: Prisma.SortOrderInput | Prisma.SortOrder
+  inputContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  output?: Prisma.SortOrder
+  modelUsed?: Prisma.SortOrder
+  tokenCount?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
+  prompt?: Prisma.PromptOrderByWithRelationInput
 }
 
 export type GenerationWhereUniqueInput = Prisma.AtLeast<{
@@ -209,23 +272,32 @@ export type GenerationWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.GenerationWhereInput[]
   NOT?: Prisma.GenerationWhereInput | Prisma.GenerationWhereInput[]
   projectId?: Prisma.StringFilter<"Generation"> | string
-  framework?: Prisma.EnumFrameWorkFilter<"Generation"> | $Enums.FrameWork
+  promptId?: Prisma.StringFilter<"Generation"> | string
   type?: Prisma.EnumGenerationTypeFilter<"Generation"> | $Enums.GenerationType
-  summary?: Prisma.StringNullableFilter<"Generation"> | string | null
+  inputContext?: Prisma.StringNullableFilter<"Generation"> | string | null
+  output?: Prisma.StringFilter<"Generation"> | string
+  modelUsed?: Prisma.StringFilter<"Generation"> | string
+  tokenCount?: Prisma.IntNullableFilter<"Generation"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Generation"> | Date | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  prompt?: Prisma.XOR<Prisma.PromptScalarRelationFilter, Prisma.PromptWhereInput>
 }, "id">
 
 export type GenerationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  framework?: Prisma.SortOrder
+  promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  summary?: Prisma.SortOrderInput | Prisma.SortOrder
+  inputContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  output?: Prisma.SortOrder
+  modelUsed?: Prisma.SortOrder
+  tokenCount?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.GenerationCountOrderByAggregateInput
+  _avg?: Prisma.GenerationAvgOrderByAggregateInput
   _max?: Prisma.GenerationMaxOrderByAggregateInput
   _min?: Prisma.GenerationMinOrderByAggregateInput
+  _sum?: Prisma.GenerationSumOrderByAggregateInput
 }
 
 export type GenerationScalarWhereWithAggregatesInput = {
@@ -234,71 +306,94 @@ export type GenerationScalarWhereWithAggregatesInput = {
   NOT?: Prisma.GenerationScalarWhereWithAggregatesInput | Prisma.GenerationScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Generation"> | string
   projectId?: Prisma.StringWithAggregatesFilter<"Generation"> | string
-  framework?: Prisma.EnumFrameWorkWithAggregatesFilter<"Generation"> | $Enums.FrameWork
+  promptId?: Prisma.StringWithAggregatesFilter<"Generation"> | string
   type?: Prisma.EnumGenerationTypeWithAggregatesFilter<"Generation"> | $Enums.GenerationType
-  summary?: Prisma.StringNullableWithAggregatesFilter<"Generation"> | string | null
+  inputContext?: Prisma.StringNullableWithAggregatesFilter<"Generation"> | string | null
+  output?: Prisma.StringWithAggregatesFilter<"Generation"> | string
+  modelUsed?: Prisma.StringWithAggregatesFilter<"Generation"> | string
+  tokenCount?: Prisma.IntNullableWithAggregatesFilter<"Generation"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Generation"> | Date | string
 }
 
 export type GenerationCreateInput = {
   id?: string
-  framework: $Enums.FrameWork
   type: $Enums.GenerationType
-  summary?: string | null
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
   createdAt?: Date | string
   project: Prisma.ProjectCreateNestedOneWithoutGenerationsInput
+  prompt: Prisma.PromptCreateNestedOneWithoutGenerationsInput
 }
 
 export type GenerationUncheckedCreateInput = {
   id?: string
   projectId: string
-  framework: $Enums.FrameWork
+  promptId: string
   type: $Enums.GenerationType
-  summary?: string | null
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
   createdAt?: Date | string
 }
 
 export type GenerationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  framework?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   project?: Prisma.ProjectUpdateOneRequiredWithoutGenerationsNestedInput
+  prompt?: Prisma.PromptUpdateOneRequiredWithoutGenerationsNestedInput
 }
 
 export type GenerationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  framework?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  promptId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type GenerationCreateManyInput = {
   id?: string
   projectId: string
-  framework: $Enums.FrameWork
+  promptId: string
   type: $Enums.GenerationType
-  summary?: string | null
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
   createdAt?: Date | string
 }
 
 export type GenerationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  framework?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type GenerationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  framework?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  promptId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -315,28 +410,45 @@ export type GenerationOrderByRelationAggregateInput = {
 export type GenerationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  framework?: Prisma.SortOrder
+  promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  summary?: Prisma.SortOrder
+  inputContext?: Prisma.SortOrder
+  output?: Prisma.SortOrder
+  modelUsed?: Prisma.SortOrder
+  tokenCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type GenerationAvgOrderByAggregateInput = {
+  tokenCount?: Prisma.SortOrder
 }
 
 export type GenerationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  framework?: Prisma.SortOrder
+  promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  summary?: Prisma.SortOrder
+  inputContext?: Prisma.SortOrder
+  output?: Prisma.SortOrder
+  modelUsed?: Prisma.SortOrder
+  tokenCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type GenerationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  framework?: Prisma.SortOrder
+  promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  summary?: Prisma.SortOrder
+  inputContext?: Prisma.SortOrder
+  output?: Prisma.SortOrder
+  modelUsed?: Prisma.SortOrder
+  tokenCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+}
+
+export type GenerationSumOrderByAggregateInput = {
+  tokenCount?: Prisma.SortOrder
 }
 
 export type GenerationCreateNestedManyWithoutProjectInput = {
@@ -381,23 +493,79 @@ export type GenerationUncheckedUpdateManyWithoutProjectNestedInput = {
   deleteMany?: Prisma.GenerationScalarWhereInput | Prisma.GenerationScalarWhereInput[]
 }
 
+export type GenerationCreateNestedManyWithoutPromptInput = {
+  create?: Prisma.XOR<Prisma.GenerationCreateWithoutPromptInput, Prisma.GenerationUncheckedCreateWithoutPromptInput> | Prisma.GenerationCreateWithoutPromptInput[] | Prisma.GenerationUncheckedCreateWithoutPromptInput[]
+  connectOrCreate?: Prisma.GenerationCreateOrConnectWithoutPromptInput | Prisma.GenerationCreateOrConnectWithoutPromptInput[]
+  createMany?: Prisma.GenerationCreateManyPromptInputEnvelope
+  connect?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+}
+
+export type GenerationUncheckedCreateNestedManyWithoutPromptInput = {
+  create?: Prisma.XOR<Prisma.GenerationCreateWithoutPromptInput, Prisma.GenerationUncheckedCreateWithoutPromptInput> | Prisma.GenerationCreateWithoutPromptInput[] | Prisma.GenerationUncheckedCreateWithoutPromptInput[]
+  connectOrCreate?: Prisma.GenerationCreateOrConnectWithoutPromptInput | Prisma.GenerationCreateOrConnectWithoutPromptInput[]
+  createMany?: Prisma.GenerationCreateManyPromptInputEnvelope
+  connect?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+}
+
+export type GenerationUpdateManyWithoutPromptNestedInput = {
+  create?: Prisma.XOR<Prisma.GenerationCreateWithoutPromptInput, Prisma.GenerationUncheckedCreateWithoutPromptInput> | Prisma.GenerationCreateWithoutPromptInput[] | Prisma.GenerationUncheckedCreateWithoutPromptInput[]
+  connectOrCreate?: Prisma.GenerationCreateOrConnectWithoutPromptInput | Prisma.GenerationCreateOrConnectWithoutPromptInput[]
+  upsert?: Prisma.GenerationUpsertWithWhereUniqueWithoutPromptInput | Prisma.GenerationUpsertWithWhereUniqueWithoutPromptInput[]
+  createMany?: Prisma.GenerationCreateManyPromptInputEnvelope
+  set?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+  disconnect?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+  delete?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+  connect?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+  update?: Prisma.GenerationUpdateWithWhereUniqueWithoutPromptInput | Prisma.GenerationUpdateWithWhereUniqueWithoutPromptInput[]
+  updateMany?: Prisma.GenerationUpdateManyWithWhereWithoutPromptInput | Prisma.GenerationUpdateManyWithWhereWithoutPromptInput[]
+  deleteMany?: Prisma.GenerationScalarWhereInput | Prisma.GenerationScalarWhereInput[]
+}
+
+export type GenerationUncheckedUpdateManyWithoutPromptNestedInput = {
+  create?: Prisma.XOR<Prisma.GenerationCreateWithoutPromptInput, Prisma.GenerationUncheckedCreateWithoutPromptInput> | Prisma.GenerationCreateWithoutPromptInput[] | Prisma.GenerationUncheckedCreateWithoutPromptInput[]
+  connectOrCreate?: Prisma.GenerationCreateOrConnectWithoutPromptInput | Prisma.GenerationCreateOrConnectWithoutPromptInput[]
+  upsert?: Prisma.GenerationUpsertWithWhereUniqueWithoutPromptInput | Prisma.GenerationUpsertWithWhereUniqueWithoutPromptInput[]
+  createMany?: Prisma.GenerationCreateManyPromptInputEnvelope
+  set?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+  disconnect?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+  delete?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+  connect?: Prisma.GenerationWhereUniqueInput | Prisma.GenerationWhereUniqueInput[]
+  update?: Prisma.GenerationUpdateWithWhereUniqueWithoutPromptInput | Prisma.GenerationUpdateWithWhereUniqueWithoutPromptInput[]
+  updateMany?: Prisma.GenerationUpdateManyWithWhereWithoutPromptInput | Prisma.GenerationUpdateManyWithWhereWithoutPromptInput[]
+  deleteMany?: Prisma.GenerationScalarWhereInput | Prisma.GenerationScalarWhereInput[]
+}
+
 export type EnumGenerationTypeFieldUpdateOperationsInput = {
   set?: $Enums.GenerationType
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type GenerationCreateWithoutProjectInput = {
   id?: string
-  framework: $Enums.FrameWork
   type: $Enums.GenerationType
-  summary?: string | null
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
   createdAt?: Date | string
+  prompt: Prisma.PromptCreateNestedOneWithoutGenerationsInput
 }
 
 export type GenerationUncheckedCreateWithoutProjectInput = {
   id?: string
-  framework: $Enums.FrameWork
+  promptId: string
   type: $Enums.GenerationType
-  summary?: string | null
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
   createdAt?: Date | string
 }
 
@@ -433,41 +601,148 @@ export type GenerationScalarWhereInput = {
   NOT?: Prisma.GenerationScalarWhereInput | Prisma.GenerationScalarWhereInput[]
   id?: Prisma.StringFilter<"Generation"> | string
   projectId?: Prisma.StringFilter<"Generation"> | string
-  framework?: Prisma.EnumFrameWorkFilter<"Generation"> | $Enums.FrameWork
+  promptId?: Prisma.StringFilter<"Generation"> | string
   type?: Prisma.EnumGenerationTypeFilter<"Generation"> | $Enums.GenerationType
-  summary?: Prisma.StringNullableFilter<"Generation"> | string | null
+  inputContext?: Prisma.StringNullableFilter<"Generation"> | string | null
+  output?: Prisma.StringFilter<"Generation"> | string
+  modelUsed?: Prisma.StringFilter<"Generation"> | string
+  tokenCount?: Prisma.IntNullableFilter<"Generation"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Generation"> | Date | string
+}
+
+export type GenerationCreateWithoutPromptInput = {
+  id?: string
+  type: $Enums.GenerationType
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
+  createdAt?: Date | string
+  project: Prisma.ProjectCreateNestedOneWithoutGenerationsInput
+}
+
+export type GenerationUncheckedCreateWithoutPromptInput = {
+  id?: string
+  projectId: string
+  type: $Enums.GenerationType
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
+  createdAt?: Date | string
+}
+
+export type GenerationCreateOrConnectWithoutPromptInput = {
+  where: Prisma.GenerationWhereUniqueInput
+  create: Prisma.XOR<Prisma.GenerationCreateWithoutPromptInput, Prisma.GenerationUncheckedCreateWithoutPromptInput>
+}
+
+export type GenerationCreateManyPromptInputEnvelope = {
+  data: Prisma.GenerationCreateManyPromptInput | Prisma.GenerationCreateManyPromptInput[]
+  skipDuplicates?: boolean
+}
+
+export type GenerationUpsertWithWhereUniqueWithoutPromptInput = {
+  where: Prisma.GenerationWhereUniqueInput
+  update: Prisma.XOR<Prisma.GenerationUpdateWithoutPromptInput, Prisma.GenerationUncheckedUpdateWithoutPromptInput>
+  create: Prisma.XOR<Prisma.GenerationCreateWithoutPromptInput, Prisma.GenerationUncheckedCreateWithoutPromptInput>
+}
+
+export type GenerationUpdateWithWhereUniqueWithoutPromptInput = {
+  where: Prisma.GenerationWhereUniqueInput
+  data: Prisma.XOR<Prisma.GenerationUpdateWithoutPromptInput, Prisma.GenerationUncheckedUpdateWithoutPromptInput>
+}
+
+export type GenerationUpdateManyWithWhereWithoutPromptInput = {
+  where: Prisma.GenerationScalarWhereInput
+  data: Prisma.XOR<Prisma.GenerationUpdateManyMutationInput, Prisma.GenerationUncheckedUpdateManyWithoutPromptInput>
 }
 
 export type GenerationCreateManyProjectInput = {
   id?: string
-  framework: $Enums.FrameWork
+  promptId: string
   type: $Enums.GenerationType
-  summary?: string | null
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
   createdAt?: Date | string
 }
 
 export type GenerationUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  framework?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  prompt?: Prisma.PromptUpdateOneRequiredWithoutGenerationsNestedInput
 }
 
 export type GenerationUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  framework?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  promptId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type GenerationUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  framework?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  promptId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type GenerationCreateManyPromptInput = {
+  id?: string
+  projectId: string
+  type: $Enums.GenerationType
+  inputContext?: string | null
+  output: string
+  modelUsed: string
+  tokenCount?: number | null
+  createdAt?: Date | string
+}
+
+export type GenerationUpdateWithoutPromptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  project?: Prisma.ProjectUpdateOneRequiredWithoutGenerationsNestedInput
+}
+
+export type GenerationUncheckedUpdateWithoutPromptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type GenerationUncheckedUpdateManyWithoutPromptInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+  type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
+  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  output?: Prisma.StringFieldUpdateOperationsInput | string
+  modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
+  tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -476,64 +751,86 @@ export type GenerationUncheckedUpdateManyWithoutProjectInput = {
 export type GenerationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  framework?: boolean
+  promptId?: boolean
   type?: boolean
-  summary?: boolean
+  inputContext?: boolean
+  output?: boolean
+  modelUsed?: boolean
+  tokenCount?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  prompt?: boolean | Prisma.PromptDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["generation"]>
 
 export type GenerationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  framework?: boolean
+  promptId?: boolean
   type?: boolean
-  summary?: boolean
+  inputContext?: boolean
+  output?: boolean
+  modelUsed?: boolean
+  tokenCount?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  prompt?: boolean | Prisma.PromptDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["generation"]>
 
 export type GenerationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   projectId?: boolean
-  framework?: boolean
+  promptId?: boolean
   type?: boolean
-  summary?: boolean
+  inputContext?: boolean
+  output?: boolean
+  modelUsed?: boolean
+  tokenCount?: boolean
   createdAt?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  prompt?: boolean | Prisma.PromptDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["generation"]>
 
 export type GenerationSelectScalar = {
   id?: boolean
   projectId?: boolean
-  framework?: boolean
+  promptId?: boolean
   type?: boolean
-  summary?: boolean
+  inputContext?: boolean
+  output?: boolean
+  modelUsed?: boolean
+  tokenCount?: boolean
   createdAt?: boolean
 }
 
-export type GenerationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "framework" | "type" | "summary" | "createdAt", ExtArgs["result"]["generation"]>
+export type GenerationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "promptId" | "type" | "inputContext" | "output" | "modelUsed" | "tokenCount" | "createdAt", ExtArgs["result"]["generation"]>
 export type GenerationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  prompt?: boolean | Prisma.PromptDefaultArgs<ExtArgs>
 }
 export type GenerationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  prompt?: boolean | Prisma.PromptDefaultArgs<ExtArgs>
 }
 export type GenerationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  prompt?: boolean | Prisma.PromptDefaultArgs<ExtArgs>
 }
 
 export type $GenerationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Generation"
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
+    prompt: Prisma.$PromptPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     projectId: string
-    framework: $Enums.FrameWork
+    promptId: string
     type: $Enums.GenerationType
-    summary: string | null
+    inputContext: string | null
+    output: string
+    modelUsed: string
+    tokenCount: number | null
     createdAt: Date
   }, ExtArgs["result"]["generation"]>
   composites: {}
@@ -930,6 +1227,7 @@ readonly fields: GenerationFieldRefs;
 export interface Prisma__GenerationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  prompt<T extends Prisma.PromptDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PromptDefaultArgs<ExtArgs>>): Prisma.Prisma__PromptClient<runtime.Types.Result.GetResult<Prisma.$PromptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -961,9 +1259,12 @@ export interface Prisma__GenerationClient<T, Null = never, ExtArgs extends runti
 export interface GenerationFieldRefs {
   readonly id: Prisma.FieldRef<"Generation", 'String'>
   readonly projectId: Prisma.FieldRef<"Generation", 'String'>
-  readonly framework: Prisma.FieldRef<"Generation", 'FrameWork'>
+  readonly promptId: Prisma.FieldRef<"Generation", 'String'>
   readonly type: Prisma.FieldRef<"Generation", 'GenerationType'>
-  readonly summary: Prisma.FieldRef<"Generation", 'String'>
+  readonly inputContext: Prisma.FieldRef<"Generation", 'String'>
+  readonly output: Prisma.FieldRef<"Generation", 'String'>
+  readonly modelUsed: Prisma.FieldRef<"Generation", 'String'>
+  readonly tokenCount: Prisma.FieldRef<"Generation", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Generation", 'DateTime'>
 }
     

@@ -389,7 +389,7 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Project: 'Project',
-  UserPrompt: 'UserPrompt',
+  Prompt: 'Prompt',
   Generation: 'Generation',
   ProjectMemory: 'ProjectMemory'
 } as const
@@ -407,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "project" | "userPrompt" | "generation" | "projectMemory"
+    modelProps: "user" | "session" | "account" | "verification" | "project" | "prompt" | "generation" | "projectMemory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -781,77 +781,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    UserPrompt: {
-      payload: Prisma.$UserPromptPayload<ExtArgs>
-      fields: Prisma.UserPromptFieldRefs
+    Prompt: {
+      payload: Prisma.$PromptPayload<ExtArgs>
+      fields: Prisma.PromptFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.UserPromptFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload> | null
+          args: Prisma.PromptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.UserPromptFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>
+          args: Prisma.PromptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>
         }
         findFirst: {
-          args: Prisma.UserPromptFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload> | null
+          args: Prisma.PromptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.UserPromptFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>
+          args: Prisma.PromptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>
         }
         findMany: {
-          args: Prisma.UserPromptFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>[]
+          args: Prisma.PromptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>[]
         }
         create: {
-          args: Prisma.UserPromptCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>
+          args: Prisma.PromptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>
         }
         createMany: {
-          args: Prisma.UserPromptCreateManyArgs<ExtArgs>
+          args: Prisma.PromptCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.UserPromptCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>[]
+          args: Prisma.PromptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>[]
         }
         delete: {
-          args: Prisma.UserPromptDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>
+          args: Prisma.PromptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>
         }
         update: {
-          args: Prisma.UserPromptUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>
+          args: Prisma.PromptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>
         }
         deleteMany: {
-          args: Prisma.UserPromptDeleteManyArgs<ExtArgs>
+          args: Prisma.PromptDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.UserPromptUpdateManyArgs<ExtArgs>
+          args: Prisma.PromptUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.UserPromptUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>[]
+          args: Prisma.PromptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>[]
         }
         upsert: {
-          args: Prisma.UserPromptUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserPromptPayload>
+          args: Prisma.PromptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PromptPayload>
         }
         aggregate: {
-          args: Prisma.UserPromptAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateUserPrompt>
+          args: Prisma.PromptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePrompt>
         }
         groupBy: {
-          args: Prisma.UserPromptGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserPromptGroupByOutputType>[]
+          args: Prisma.PromptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PromptGroupByOutputType>[]
         }
         count: {
-          args: Prisma.UserPromptCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.UserPromptCountAggregateOutputType> | number
+          args: Prisma.PromptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PromptCountAggregateOutputType> | number
         }
       }
     }
@@ -1113,7 +1113,7 @@ export const ProjectScalarFieldEnum = {
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
 
 
-export const UserPromptScalarFieldEnum = {
+export const PromptScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
   role: 'role',
@@ -1122,15 +1122,18 @@ export const UserPromptScalarFieldEnum = {
   createdAt: 'createdAt'
 } as const
 
-export type UserPromptScalarFieldEnum = (typeof UserPromptScalarFieldEnum)[keyof typeof UserPromptScalarFieldEnum]
+export type PromptScalarFieldEnum = (typeof PromptScalarFieldEnum)[keyof typeof PromptScalarFieldEnum]
 
 
 export const GenerationScalarFieldEnum = {
   id: 'id',
   projectId: 'projectId',
-  framework: 'framework',
+  promptId: 'promptId',
   type: 'type',
-  summary: 'summary',
+  inputContext: 'inputContext',
+  output: 'output',
+  modelUsed: 'modelUsed',
+  tokenCount: 'tokenCount',
   createdAt: 'createdAt'
 } as const
 
@@ -1396,7 +1399,7 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
   project?: Prisma.ProjectOmit
-  userPrompt?: Prisma.UserPromptOmit
+  prompt?: Prisma.PromptOmit
   generation?: Prisma.GenerationOmit
   projectMemory?: Prisma.ProjectMemoryOmit
 }

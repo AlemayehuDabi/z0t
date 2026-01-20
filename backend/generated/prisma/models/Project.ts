@@ -199,7 +199,7 @@ export type ProjectWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  prompts?: Prisma.UserPromptListRelationFilter
+  prompts?: Prisma.PromptListRelationFilter
   generations?: Prisma.GenerationListRelationFilter
   memories?: Prisma.ProjectMemoryListRelationFilter
 }
@@ -213,7 +213,7 @@ export type ProjectOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  prompts?: Prisma.UserPromptOrderByRelationAggregateInput
+  prompts?: Prisma.PromptOrderByRelationAggregateInput
   generations?: Prisma.GenerationOrderByRelationAggregateInput
   memories?: Prisma.ProjectMemoryOrderByRelationAggregateInput
 }
@@ -230,7 +230,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  prompts?: Prisma.UserPromptListRelationFilter
+  prompts?: Prisma.PromptListRelationFilter
   generations?: Prisma.GenerationListRelationFilter
   memories?: Prisma.ProjectMemoryListRelationFilter
 }, "id">
@@ -269,7 +269,7 @@ export type ProjectCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProjectInput
-  prompts?: Prisma.UserPromptCreateNestedManyWithoutProjectInput
+  prompts?: Prisma.PromptCreateNestedManyWithoutProjectInput
   generations?: Prisma.GenerationCreateNestedManyWithoutProjectInput
   memories?: Prisma.ProjectMemoryCreateNestedManyWithoutProjectInput
 }
@@ -282,7 +282,7 @@ export type ProjectUncheckedCreateInput = {
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  prompts?: Prisma.UserPromptUncheckedCreateNestedManyWithoutProjectInput
+  prompts?: Prisma.PromptUncheckedCreateNestedManyWithoutProjectInput
   generations?: Prisma.GenerationUncheckedCreateNestedManyWithoutProjectInput
   memories?: Prisma.ProjectMemoryUncheckedCreateNestedManyWithoutProjectInput
 }
@@ -295,7 +295,7 @@ export type ProjectUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProjectNestedInput
-  prompts?: Prisma.UserPromptUpdateManyWithoutProjectNestedInput
+  prompts?: Prisma.PromptUpdateManyWithoutProjectNestedInput
   generations?: Prisma.GenerationUpdateManyWithoutProjectNestedInput
   memories?: Prisma.ProjectMemoryUpdateManyWithoutProjectNestedInput
 }
@@ -308,7 +308,7 @@ export type ProjectUncheckedUpdateInput = {
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  prompts?: Prisma.UserPromptUncheckedUpdateManyWithoutProjectNestedInput
+  prompts?: Prisma.PromptUncheckedUpdateManyWithoutProjectNestedInput
   generations?: Prisma.GenerationUncheckedUpdateManyWithoutProjectNestedInput
   memories?: Prisma.ProjectMemoryUncheckedUpdateManyWithoutProjectNestedInput
 }
@@ -486,7 +486,7 @@ export type ProjectCreateWithoutUserInput = {
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  prompts?: Prisma.UserPromptCreateNestedManyWithoutProjectInput
+  prompts?: Prisma.PromptCreateNestedManyWithoutProjectInput
   generations?: Prisma.GenerationCreateNestedManyWithoutProjectInput
   memories?: Prisma.ProjectMemoryCreateNestedManyWithoutProjectInput
 }
@@ -498,7 +498,7 @@ export type ProjectUncheckedCreateWithoutUserInput = {
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  prompts?: Prisma.UserPromptUncheckedCreateNestedManyWithoutProjectInput
+  prompts?: Prisma.PromptUncheckedCreateNestedManyWithoutProjectInput
   generations?: Prisma.GenerationUncheckedCreateNestedManyWithoutProjectInput
   memories?: Prisma.ProjectMemoryUncheckedCreateNestedManyWithoutProjectInput
 }
@@ -614,7 +614,7 @@ export type ProjectCreateWithoutGenerationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProjectInput
-  prompts?: Prisma.UserPromptCreateNestedManyWithoutProjectInput
+  prompts?: Prisma.PromptCreateNestedManyWithoutProjectInput
   memories?: Prisma.ProjectMemoryCreateNestedManyWithoutProjectInput
 }
 
@@ -626,7 +626,7 @@ export type ProjectUncheckedCreateWithoutGenerationsInput = {
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  prompts?: Prisma.UserPromptUncheckedCreateNestedManyWithoutProjectInput
+  prompts?: Prisma.PromptUncheckedCreateNestedManyWithoutProjectInput
   memories?: Prisma.ProjectMemoryUncheckedCreateNestedManyWithoutProjectInput
 }
 
@@ -654,7 +654,7 @@ export type ProjectUpdateWithoutGenerationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProjectNestedInput
-  prompts?: Prisma.UserPromptUpdateManyWithoutProjectNestedInput
+  prompts?: Prisma.PromptUpdateManyWithoutProjectNestedInput
   memories?: Prisma.ProjectMemoryUpdateManyWithoutProjectNestedInput
 }
 
@@ -666,7 +666,7 @@ export type ProjectUncheckedUpdateWithoutGenerationsInput = {
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  prompts?: Prisma.UserPromptUncheckedUpdateManyWithoutProjectNestedInput
+  prompts?: Prisma.PromptUncheckedUpdateManyWithoutProjectNestedInput
   memories?: Prisma.ProjectMemoryUncheckedUpdateManyWithoutProjectNestedInput
 }
 
@@ -678,7 +678,7 @@ export type ProjectCreateWithoutMemoriesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProjectInput
-  prompts?: Prisma.UserPromptCreateNestedManyWithoutProjectInput
+  prompts?: Prisma.PromptCreateNestedManyWithoutProjectInput
   generations?: Prisma.GenerationCreateNestedManyWithoutProjectInput
 }
 
@@ -690,7 +690,7 @@ export type ProjectUncheckedCreateWithoutMemoriesInput = {
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  prompts?: Prisma.UserPromptUncheckedCreateNestedManyWithoutProjectInput
+  prompts?: Prisma.PromptUncheckedCreateNestedManyWithoutProjectInput
   generations?: Prisma.GenerationUncheckedCreateNestedManyWithoutProjectInput
 }
 
@@ -718,7 +718,7 @@ export type ProjectUpdateWithoutMemoriesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProjectNestedInput
-  prompts?: Prisma.UserPromptUpdateManyWithoutProjectNestedInput
+  prompts?: Prisma.PromptUpdateManyWithoutProjectNestedInput
   generations?: Prisma.GenerationUpdateManyWithoutProjectNestedInput
 }
 
@@ -730,7 +730,7 @@ export type ProjectUncheckedUpdateWithoutMemoriesInput = {
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  prompts?: Prisma.UserPromptUncheckedUpdateManyWithoutProjectNestedInput
+  prompts?: Prisma.PromptUncheckedUpdateManyWithoutProjectNestedInput
   generations?: Prisma.GenerationUncheckedUpdateManyWithoutProjectNestedInput
 }
 
@@ -750,7 +750,7 @@ export type ProjectUpdateWithoutUserInput = {
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  prompts?: Prisma.UserPromptUpdateManyWithoutProjectNestedInput
+  prompts?: Prisma.PromptUpdateManyWithoutProjectNestedInput
   generations?: Prisma.GenerationUpdateManyWithoutProjectNestedInput
   memories?: Prisma.ProjectMemoryUpdateManyWithoutProjectNestedInput
 }
@@ -762,7 +762,7 @@ export type ProjectUncheckedUpdateWithoutUserInput = {
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  prompts?: Prisma.UserPromptUncheckedUpdateManyWithoutProjectNestedInput
+  prompts?: Prisma.PromptUncheckedUpdateManyWithoutProjectNestedInput
   generations?: Prisma.GenerationUncheckedUpdateManyWithoutProjectNestedInput
   memories?: Prisma.ProjectMemoryUncheckedUpdateManyWithoutProjectNestedInput
 }
@@ -807,7 +807,7 @@ export type ProjectCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
  * ProjectCountOutputType without action
  */
 export type ProjectCountOutputTypeCountPromptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserPromptWhereInput
+  where?: Prisma.PromptWhereInput
 }
 
 /**
@@ -891,7 +891,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Project"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    prompts: Prisma.$UserPromptPayload<ExtArgs>[]
+    prompts: Prisma.$PromptPayload<ExtArgs>[]
     generations: Prisma.$GenerationPayload<ExtArgs>[]
     memories: Prisma.$ProjectMemoryPayload<ExtArgs>[]
   }
@@ -1298,7 +1298,7 @@ readonly fields: ProjectFieldRefs;
 export interface Prisma__ProjectClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  prompts<T extends Prisma.Project$promptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$promptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPromptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  prompts<T extends Prisma.Project$promptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$promptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PromptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   generations<T extends Prisma.Project$generationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$generationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GenerationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   memories<T extends Prisma.Project$memoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Project$memoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectMemoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1737,23 +1737,23 @@ export type ProjectDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
  */
 export type Project$promptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the UserPrompt
+   * Select specific fields to fetch from the Prompt
    */
-  select?: Prisma.UserPromptSelect<ExtArgs> | null
+  select?: Prisma.PromptSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the UserPrompt
+   * Omit specific fields from the Prompt
    */
-  omit?: Prisma.UserPromptOmit<ExtArgs> | null
+  omit?: Prisma.PromptOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.UserPromptInclude<ExtArgs> | null
-  where?: Prisma.UserPromptWhereInput
-  orderBy?: Prisma.UserPromptOrderByWithRelationInput | Prisma.UserPromptOrderByWithRelationInput[]
-  cursor?: Prisma.UserPromptWhereUniqueInput
+  include?: Prisma.PromptInclude<ExtArgs> | null
+  where?: Prisma.PromptWhereInput
+  orderBy?: Prisma.PromptOrderByWithRelationInput | Prisma.PromptOrderByWithRelationInput[]
+  cursor?: Prisma.PromptWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.UserPromptScalarFieldEnum | Prisma.UserPromptScalarFieldEnum[]
+  distinct?: Prisma.PromptScalarFieldEnum | Prisma.PromptScalarFieldEnum[]
 }
 
 /**
