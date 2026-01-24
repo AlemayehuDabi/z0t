@@ -4,10 +4,13 @@
     "dev": "bun run --hot src/server.ts"
   },
   "dependencies": {
+    "@langchain/core": "^1.1.16",
+    "@langchain/langgraph": "^1.1.1",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "better-auth": "^1.4.12",
     "dotenv": "^17.2.3",
+    "groq-sdk": "^0.37.0",
     "hono": "^4.11.3"
   },
   "devDependencies": {

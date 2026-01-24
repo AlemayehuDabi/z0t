@@ -280,7 +280,7 @@ export type PromptScalarWhereWithAggregatesInput = {
 }
 
 export type PromptCreateInput = {
-  id: string
+  id?: string
   role: $Enums.PromptRole
   content: string
   order: number
@@ -290,7 +290,7 @@ export type PromptCreateInput = {
 }
 
 export type PromptUncheckedCreateInput = {
-  id: string
+  id?: string
   projectId: string
   role: $Enums.PromptRole
   content: string
@@ -320,7 +320,7 @@ export type PromptUncheckedUpdateInput = {
 }
 
 export type PromptCreateManyInput = {
-  id: string
+  id?: string
   projectId: string
   role: $Enums.PromptRole
   content: string
@@ -464,7 +464,7 @@ export type PromptUpdateOneRequiredWithoutGenerationsNestedInput = {
 }
 
 export type PromptCreateWithoutProjectInput = {
-  id: string
+  id?: string
   role: $Enums.PromptRole
   content: string
   order: number
@@ -473,7 +473,7 @@ export type PromptCreateWithoutProjectInput = {
 }
 
 export type PromptUncheckedCreateWithoutProjectInput = {
-  id: string
+  id?: string
   role: $Enums.PromptRole
   content: string
   order: number
@@ -520,7 +520,7 @@ export type PromptScalarWhereInput = {
 }
 
 export type PromptCreateWithoutGenerationsInput = {
-  id: string
+  id?: string
   role: $Enums.PromptRole
   content: string
   order: number
@@ -529,7 +529,7 @@ export type PromptCreateWithoutGenerationsInput = {
 }
 
 export type PromptUncheckedCreateWithoutGenerationsInput = {
-  id: string
+  id?: string
   projectId: string
   role: $Enums.PromptRole
   content: string
@@ -572,7 +572,7 @@ export type PromptUncheckedUpdateWithoutGenerationsInput = {
 }
 
 export type PromptCreateManyProjectInput = {
-  id: string
+  id?: string
   role: $Enums.PromptRole
   content: string
   order: number

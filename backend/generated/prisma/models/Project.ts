@@ -262,7 +262,7 @@ export type ProjectScalarWhereWithAggregatesInput = {
 }
 
 export type ProjectCreateInput = {
-  id: string
+  id?: string
   name: string
   frameWork?: $Enums.FrameWork
   projectStatus?: $Enums.ProjectStatus
@@ -275,7 +275,7 @@ export type ProjectCreateInput = {
 }
 
 export type ProjectUncheckedCreateInput = {
-  id: string
+  id?: string
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
@@ -314,7 +314,7 @@ export type ProjectUncheckedUpdateInput = {
 }
 
 export type ProjectCreateManyInput = {
-  id: string
+  id?: string
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
@@ -480,7 +480,7 @@ export type ProjectUpdateOneRequiredWithoutMemoriesNestedInput = {
 }
 
 export type ProjectCreateWithoutUserInput = {
-  id: string
+  id?: string
   name: string
   frameWork?: $Enums.FrameWork
   projectStatus?: $Enums.ProjectStatus
@@ -492,7 +492,7 @@ export type ProjectCreateWithoutUserInput = {
 }
 
 export type ProjectUncheckedCreateWithoutUserInput = {
-  id: string
+  id?: string
   name: string
   frameWork?: $Enums.FrameWork
   projectStatus?: $Enums.ProjectStatus
@@ -543,7 +543,7 @@ export type ProjectScalarWhereInput = {
 }
 
 export type ProjectCreateWithoutPromptsInput = {
-  id: string
+  id?: string
   name: string
   frameWork?: $Enums.FrameWork
   projectStatus?: $Enums.ProjectStatus
@@ -555,7 +555,7 @@ export type ProjectCreateWithoutPromptsInput = {
 }
 
 export type ProjectUncheckedCreateWithoutPromptsInput = {
-  id: string
+  id?: string
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
@@ -607,7 +607,7 @@ export type ProjectUncheckedUpdateWithoutPromptsInput = {
 }
 
 export type ProjectCreateWithoutGenerationsInput = {
-  id: string
+  id?: string
   name: string
   frameWork?: $Enums.FrameWork
   projectStatus?: $Enums.ProjectStatus
@@ -619,7 +619,7 @@ export type ProjectCreateWithoutGenerationsInput = {
 }
 
 export type ProjectUncheckedCreateWithoutGenerationsInput = {
-  id: string
+  id?: string
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
@@ -671,7 +671,7 @@ export type ProjectUncheckedUpdateWithoutGenerationsInput = {
 }
 
 export type ProjectCreateWithoutMemoriesInput = {
-  id: string
+  id?: string
   name: string
   frameWork?: $Enums.FrameWork
   projectStatus?: $Enums.ProjectStatus
@@ -683,7 +683,7 @@ export type ProjectCreateWithoutMemoriesInput = {
 }
 
 export type ProjectUncheckedCreateWithoutMemoriesInput = {
-  id: string
+  id?: string
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
@@ -735,7 +735,7 @@ export type ProjectUncheckedUpdateWithoutMemoriesInput = {
 }
 
 export type ProjectCreateManyUserInput = {
-  id: string
+  id?: string
   name: string
   frameWork?: $Enums.FrameWork
   projectStatus?: $Enums.ProjectStatus
