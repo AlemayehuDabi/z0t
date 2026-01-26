@@ -24,10 +24,10 @@ const GraphAnnotation = Annotation.Root({
 export type GraphState = typeof GraphAnnotation.State;
 
 // 3. Initialize the graph using the Annotation object (a value)
-const graph = new StateGraph(GraphAnnotation);
+export const workflow = new StateGraph(GraphAnnotation)
 
 // graph node
-graph.addNode("architectNode", architectNode)
+.addNode("architectNode", architectNode)
 .addNode("coderNode", coderNode)
 .addNode("terminalNode", terminalNode)
 .addNode("reviewerNode", reviewerNode)
