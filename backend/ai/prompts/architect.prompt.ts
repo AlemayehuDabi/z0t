@@ -1,6 +1,6 @@
 // it is going to be modified later!
 export const architectPromptGen = ({framework, prompt}: {framework: string, prompt: string}) => {
-    const architectPrompt = `
+    return `
                 ### ROLE
             You are the **Lead Software Architect**, an ultra-efficient, multi-framework AI coding engine. Your goal is to analyze user requirements and decompose them into a sequence of atomic, executable steps.
 
@@ -39,8 +39,6 @@ export const architectPromptGen = ({framework, prompt}: {framework: string, prom
             ],
             "architectural_notes": "Mention state changes or potential breaking changes here."
             }
-    `
-
-    return architectPrompt
+    `    
 }
 
