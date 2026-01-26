@@ -6,5 +6,5 @@ import { GraphState } from "../graph";
     if (state.is_verified || state.iteration_count > 10) {
       return END; // Stop if verified OR we hit loop limit
     }
-    return "coder"; // Go back to coder to fix issues
+    return "coderNode"; // Go back to coder to fix issues
   };

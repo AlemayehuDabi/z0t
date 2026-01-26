@@ -13,7 +13,7 @@ export interface AgentOptions {
 }
 
 // 4. Base Interface for all Prompts
-interface BasePromptRequest {
+export interface BasePromptRequest {
   mode: InteractionMode;
   content: string;                         // The user's actual text instruction
   userId: string;
@@ -21,7 +21,7 @@ interface BasePromptRequest {
 }
 
 // 5. Schema for Journey A: NEW PROJECT (The Genesis)
-interface GenesisRequest extends BasePromptRequest {
+export interface GenesisRequest extends BasePromptRequest {
   mode: "GENESIS";
   projectSetup: {
     name: string;
@@ -33,7 +33,7 @@ interface GenesisRequest extends BasePromptRequest {
 }
 
 // 6. Schema for Journey B: EXISTING PROJECT (The Evolution)
-interface EvolutionRequest extends BasePromptRequest {
+export interface EvolutionRequest extends BasePromptRequest {
   mode: "EVOLUTION";
   projectId: string;
   context: {
@@ -50,4 +50,4 @@ interface EvolutionRequest extends BasePromptRequest {
 }
 
 // 7. The Final Union Type
-export type Z0TPromptRequest = GenesisRequest | EvolutionRequest;
+export type promptRequest = GenesisRequest | EvolutionRequest;
