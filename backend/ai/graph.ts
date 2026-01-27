@@ -1,4 +1,4 @@
-import { StateGraph, Annotation, START, AnnotationRoot } from "@langchain/langgraph";
+import { StateGraph, Annotation, START } from "@langchain/langgraph";
 import { architectNode } from "./agents/architect.agent";
 import { coderNode } from "./agents/coder.agent";
 import { terminalNode } from "./agents/terminal.agent";
