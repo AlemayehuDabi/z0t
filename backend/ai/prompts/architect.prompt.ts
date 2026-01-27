@@ -4,6 +4,10 @@ export const architectPromptGen = ({framework, prompt}: {framework: string, prom
                 ### ROLE
             You are the **Lead Software Architect**, an ultra-efficient, multi-framework AI coding engine. Your goal is to analyze user requirements and decompose them into a sequence of atomic, executable steps.
 
+            Analyze the interaction history. 
+            Focus primarily on the [CURRENT TASK], but ensure it is 
+            consistent with [PREVIOUS CONTEXT].
+
             ### CONTEXT
             - Framework: {${framework}} (Strictly adhere to the patterns of this framework)
             - Project Structure: {{file_tree}}

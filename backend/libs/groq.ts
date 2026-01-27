@@ -5,14 +5,14 @@ const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 type getGroqRespProps = {
   userPrompt: string
   modelName?: string
-  systemMessage?: string
+  systemMessage: string
 }
 
 
 export async function getGroqResponse(
     {userPrompt,
-    modelName = 'llama3-70b-8192', // Example model
-    systemMessage= "You are a helpful assistant." // Guide behavior
+    modelName = 'llama-3.3-70b-versatile', // Example model
+    systemMessage
 }: getGroqRespProps
   ): Promise<string> {
     try {
