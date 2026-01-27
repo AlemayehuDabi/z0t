@@ -29,7 +29,7 @@ export interface FileChange {
 export const GraphAnnotation = Annotation.Root({
   project_id: Annotation<string>,
   framework: Annotation<string>,
-  user_prompt: Annotation<string>,
+  user_prompt: Annotation<Array<string>>,
   
   // The Architect's output
   plan: Annotation<ArchitectPlan>, 
@@ -68,7 +68,6 @@ export const workflow = new StateGraph(GraphAnnotation)
 .addNode("coderNode", coderNode)
 .addNode("terminalNode", terminalNode)
 .addNode("reviewerNode", reviewerNode)
-.addNode("routeAfterReview", routeAfterReview)
 
 // edges
 .addEdge(START, "architectNode")
@@ -77,6 +76,9 @@ export const workflow = new StateGraph(GraphAnnotation)
 .addEdge("terminalNode", "reviewerNode")
 
 // conditional edge
-.addConditionalEdges("reviewerNode", "routeAfterReview")
+.addConditionalEdges("reviewerNode", routeAfterReview, {
+  "retry": "architectNode",
+  "end": "__end__"
+})
 
 .compile()

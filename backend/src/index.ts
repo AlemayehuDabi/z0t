@@ -44,7 +44,7 @@ app.get('/', (c) => {
 app.route("/api/auth/*", authRouter)
 
 // protected route
-app.use("/api/prompt/*", requireAuth)
+// app.use("/api/prompt/*", requireAuth)
 app.route("/api/prompt", promptRoute)
 
 export default app

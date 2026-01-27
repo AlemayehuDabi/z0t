@@ -1,34 +1,39 @@
 import prisma from "../../libs/prisma";
-import { GenesisRequest, FrameworkType, promptRequest, EvolutionRequest } from "../../../package/type";
+import { GenesisRequest, FrameworkType, EvolutionRequest } from "../../../package/type";
+import { date } from "better-auth/*";
 
 export const ProjectService = {
   /**
    * GENESIS: Creates a brand new project and initializes its memory.
    */
   async createProject(data: GenesisRequest, userId: string) {
-    return await prisma.$transaction(async (tx: any) => {
       // 1. Create the project
-      const project = await tx.project.create({
+      return await prisma.project.create({
         data: {
           name: data.projectSetup.name,
           userId: userId,
           frameWork: data.projectSetup.framework as FrameworkType, // Matches your Prisma Enum
           projectStatus: "ACTIVE",
+          memories:{
+            create: {
+              key: "stack_summary",
+              value: `Framework: ${data.projectSetup.framework}. Instructions: Follow standard ${data.projectSetup.framework} patterns.`,
+            }
+          },
+          prompts: {
+            create: {
+              role: "USER",
+              content: data.content,
+              order: 0
+            }
+          }
         },
-      });
 
-      // 2. Initialize Project Memory
-      // This helps the AI remember its framework and styling choice instantly
-      await tx.projectMemory.create({
-        data: {
-          projectId: project.id,
-          key: "stack_summary",
-          value: `Framework: ${data.projectSetup.framework}. Instructions: Follow standard ${data.projectSetup.framework} patterns.`,
-        },
+        include: {
+          memories: true, // Return the memory with the project
+          prompts: true
+        }  
       });
-
-      return project;
-    });
   },
 
   /**
@@ -70,34 +75,56 @@ export const ProjectService = {
     modelName: string;
     type: "CODE" | "ARCHITECTURE" | "FIX";
   }) {
-    return await prisma.$transaction(async (tx: any) => {
+
       // 1. Save the User Prompt
-      const userPrompt = await tx.prompt.create({
+      return await prisma.prompt.create({
         data: {
           projectId: params.projectId,
           role: "USER",
           content: params.userContent,
           order: 0, // You can calculate incrementing order here
-        },
-      });
 
-      // 2. Save the AI's Generation
-      const generation = await tx.generation.create({
-        data: {
-          projectId: params.projectId,
-          promptId: userPrompt.id,
-          type: params.type,
-          output: params.aiOutput,
-          modelUsed: params.modelName,
+          generations: { // optimized 
+            create: {
+              projectId: params.projectId,
+              type: params.type,
+              output: params.aiOutput,
+              modelUsed: params.modelName,
+            }
+          }
         },
+        include: {
+          generations: true // return w/ prompt
+        }
       });
-
-      return { userPrompt, generation };
-    });
   },
 
-//   get project memory
+  // addprompt
+  async addPrompt(projectId: string, content: string, role: "USER" | "SYSTEM" | "AGENT") {
 
+    const lastPrompt = await prisma.prompt.findFirst({
+      where: {
+        projectId
+      },
+      orderBy: {order: 'desc'}
+    })
+
+    const nextOrder = lastPrompt ? lastPrompt.order + 1 : 0
+
+    return await prisma.prompt.create(
+      {
+        data: {
+          projectId,
+          content,
+          order: nextOrder,
+          role
+        }
+      }
+    )
+  },
+
+
+  //   get project memory
   async getProjectMemory(body: EvolutionRequest, userId: string) {
       
     const projectMemory = await prisma.projectMemory.findFirst({

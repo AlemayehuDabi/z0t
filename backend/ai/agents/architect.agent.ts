@@ -9,9 +9,7 @@ export const architectNode = async (state: GraphState) => {
     const user_prompt = state.user_prompt
     const frameWork = state.framework
 
-
     // Logic: Call LLM to generate a plan based on user_prompt + framework
-
     // arch prompt
     const prompt = architectPromptGen({framework: frameWork, prompt: user_prompt})
 

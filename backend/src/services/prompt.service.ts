@@ -21,7 +21,9 @@ export async function createPrompt (c:Context) {
     // 2. CONTEXT AGGREGATION (The Performance Layer)
     if (mode == "GENESIS") {
         // TODO: Create a new entry in the Project table.
-        const newProject = await ProjectService.createProject(requestPayload, user.id)
+        const newProject = await ProjectService.createProject(requestPayload, 
+            // i'll change it - user.id
+            requestPayload.userId)
         
         // console log for debug
         console.log("initializing new/genesis project", newProject)
@@ -31,8 +33,16 @@ export async function createPrompt (c:Context) {
         frameWork = newProject.frameWork
         prompts = newProject.prompts.slice(0,5)
     } else {
+
+        // add new prompt 
+        // SAVE the new incoming prompt first so it's part of the history
+        await ProjectService.addPrompt(requestPayload.projectId, requestPayload.content, "USER")
+
         // TODO: Fetch the last 5 relevant prompts from the database for short-term memory.      
-        const projectContext = await ProjectService.getProjectContext(requestPayload.projectId, user.id)
+        const projectContext = await ProjectService.getProjectContext(requestPayload.projectId, 
+            // user.id
+            requestPayload.userId
+        )
 
         // console log the project context'
         console.log({projectContext})
@@ -53,13 +63,26 @@ export async function createPrompt (c:Context) {
         // TODO: Capture any 'errorLogs' provided to prioritize a "Fix" agent over a "Feature" agent.
     }
 
+    // 1. Extract just the content strings
+    // 2. .reverse() them so the AI reads history from oldest to newest
+    const promptHistory = prompts
+    .map(p => p.content)
+    .reverse();
+
+
     // 3. MULTI-AGENT DISPATCH (The "Brain" Layer)
     const result = await workflow.invoke({
         project_id: projectId,
         framework: frameWork,
-        user_prompt: prompts,
+        user_prompt: promptHistory,
         files: [],
-        plan: [],
+        plan: {
+            intent: mode,
+            summary: "",
+            packages: [],
+            steps: [],
+            architectural_notes: ""
+        },
         terminal_output: "",
         is_verified: false
     })
