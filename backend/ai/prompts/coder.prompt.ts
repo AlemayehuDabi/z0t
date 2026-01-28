@@ -1,5 +1,7 @@
+import { ArchitectPlan, FileChange } from "../graph"
+
 // modified later
-export const coderPromptGen = (framework: string, plan: Array<string>, files: Array<string>, iteration_count: number) => {
+export const coderPromptGen = (framework: string, plan: ArchitectPlan, files: FileChange[], iteration_count: number) => {
     return `
     You are the CODER agent in the z0t system.
 

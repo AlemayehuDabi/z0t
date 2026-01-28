@@ -22,6 +22,9 @@ export const architectNode = async (state: GraphState) => {
         systemMessage: prompt
     })
 
+
+    // save the arch to db
+
     // console log the response
     console.log("the response from arch: ", response)
 
