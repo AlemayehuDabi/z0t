@@ -27,11 +27,9 @@ export const coderNode = async (state: GraphState) => {
     // log the response
     console.log("The response from the llm for coder node: ", response)
 
-
     // use tool
 
     // save the response to db
-
 
     return { 
       files: [{ path: "src/App.tsx", content: "export default function..." }] 
