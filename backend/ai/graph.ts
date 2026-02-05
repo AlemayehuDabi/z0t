@@ -1,59 +1,134 @@
-import { StateGraph, Annotation, START } from '@langchain/langgraph';
+import {
+  StateGraph,
+  Annotation,
+  START,
+  messagesStateReducer,
+} from '@langchain/langgraph';
 import { architectNode } from './agents/architect.agent';
 import { coderNode } from './agents/coder.agent';
 import { terminalNode } from './agents/terminal.agent';
 import { reviewerNode } from './agents/reviewer.agent';
 import { routeAfterReview } from './agents/routeAfterReview.agent';
 
+import {
+  FrameworkType,
+  InteractionMode,
+  StylingType,
+} from '../../package/type';
+import { BaseMessage } from '@langchain/core/messages';
+
 // 1. Define structured types for the state
 export interface ArchitectPlan {
-  intent: 'GENESIS' | 'EVOLUTION' | 'FIX' | 'REFACTOR';
-  summary: string;
+  id: string;
+  intent: InteractionMode;
+  framework: FrameworkType;
+  styling: StylingType;
   packages: string[];
+
   steps: {
-    step: number;
-    action: 'CREATE' | 'MODIFY' | 'DELETE' | 'COMMAND';
-    path: string;
+    id: string;
+    title: string;
     description: string;
+
+    files_affected: string[];
+
+    action: 'CREATE' | 'MODIFY' | 'DELETE' | 'COMMAND';
+    status: 'PENDING' | 'RUNNING' | 'COMPLETED' | 'FAILED';
   }[];
-  architectural_notes: string;
+
+  context_summary: string;
+  dependencies: Record<string, string>; // name -> version
 }
 
-export interface FileChange {
+export interface FileNode {
   path: string;
   content: string;
+  isBinary: boolean;
+  lastUpdated: number; // Timestamp for HMR (Hot Module Replacement) optimization
 }
+
+// status of the agent
+export type AgentStatus =
+  | 'IDLE'
+  | 'THINKING'
+  | 'PLANNING'
+  | 'CODING'
+  | 'INSTALLING'
+  | 'REVIEWING'
+  | 'FIXING'
+  | 'COMPLETED'
+  | 'ERROR';
 
 // 2. Define the Root Annotation
 export const GraphAnnotation = Annotation.Root({
+  // meta-data and identities
   project_id: Annotation<string>,
+  userId: Annotation<string>,
   framework: Annotation<string>,
+
   user_prompt: Annotation<Array<string>>,
 
-  // The Architect's output
-  plan: Annotation<ArchitectPlan>,
+  status: Annotation<AgentStatus>({
+    reducer: (perv, curr) => curr,
+    default: () => 'IDLE',
+  }),
 
-  // The current working set of files (The "Codebase")
-  files: Annotation<FileChange[]>({
-    reducer: (left, right) => {
-      // This reducer merges file changes.
-      // If a file path exists, update it. If not, add it.
-      const fileMap = new Map(left.map((f) => [f.path, f.content]));
-      right.forEach((f) => fileMap.set(f.path, f.content));
-      return Array.from(fileMap, ([path, content]) => ({ path, content }));
-    },
+  // --- Input & History ---
+  // Using messagesStateReducer allows LangGraph to handle chat history automatically
+  message: Annotation<BaseMessage[]>({
+    reducer: messagesStateReducer,
     default: () => [],
   }),
 
-  terminal_output: Annotation<string>,
-
-  iteration_count: Annotation<number>({
-    reducer: (left, right) => (left ?? 0) + right, // Auto-increments when returned
-    default: () => 0,
+  // The Architect's output
+  plan: Annotation<ArchitectPlan>({
+    reducer: (perv, curr) => ({ ...perv, ...curr }),
   }),
 
-  is_verified: Annotation<boolean>,
-  review_feedback: Annotation<string>, // To tell the coder what to fix
+  // The current working set of files (The "Codebase")
+  files: Annotation<Record<string, FileNode>>({
+    reducer: (perv, curr) => ({ ...perv, ...curr }),
+    default: () => ({}),
+  }),
+
+  // terminal code
+  terminal: Annotation<{
+    logs: string[];
+    last_command?: string;
+    exit_code?: string;
+  }>({
+    reducer: (perv, curr) => ({
+      ...perv,
+      ...curr,
+      logs: [...perv.logs, ...curr.logs].slice(-50),
+    }),
+    default: () => ({ logs: [] }),
+  }),
+
+  // --- Quality Control (The "Judge") ---
+  review: Annotation<{
+    is_variable: boolean;
+    feedback: string;
+    suggested_fixes?: string;
+    score: number;
+  }>({
+    reducer: (perv, curr) => ({
+      ...perv,
+      ...curr,
+    }),
+
+    default: () => ({
+      is_variable: false,
+      feedback: '',
+      score: 0,
+    }),
+  }),
+
+  //  --- Performance Counters ---
+  iteration_count: Annotation<number>({
+    reducer: (perv, curr) => (perv ?? 0) + curr, // Auto-increments when returned
+    default: () => 0,
+  }),
 });
 
 // 2. Derive the interface from the Annotation (optional, if you need the type elsewhere)
