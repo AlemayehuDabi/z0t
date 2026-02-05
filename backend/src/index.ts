@@ -4,9 +4,11 @@ import authRouter from './routes/auth.route';
 import promptRoute from './routes/prompt.route';
 import { auth } from '../libs/auth';
 // import { requireAuth } from './middleware/auth.guard';
-import { serve } from 'inngest/hono';
-import { inngest } from './inngest';
-import { functions } from './inngest/functions';
+
+// later for production
+// import { serve } from 'inngest/hono';
+// import { inngest } from './inngest';
+// import { functions } from './inngest/functions';
 
 const app = new Hono<{
   Variables: {
@@ -28,7 +30,8 @@ app.use(
 );
 
 // Set up the "/api/inngest" (recommended) routes with the serve handler
-app.use('/api/inngest', serve({ client: inngest, functions }));
+// later in the production
+// app.use('/api/inngest', serve({ client: inngest, functions }));
 
 app.use('*', async (c, next) => {
   const session = await auth.api.getSession({ headers: c.req.raw.headers });
