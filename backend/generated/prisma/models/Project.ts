@@ -29,6 +29,7 @@ export type ProjectMinAggregateOutputType = {
   name: string | null
   userId: string | null
   frameWork: $Enums.FrameWork | null
+  styling: $Enums.StylingType | null
   projectStatus: $Enums.ProjectStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -39,6 +40,7 @@ export type ProjectMaxAggregateOutputType = {
   name: string | null
   userId: string | null
   frameWork: $Enums.FrameWork | null
+  styling: $Enums.StylingType | null
   projectStatus: $Enums.ProjectStatus | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +51,7 @@ export type ProjectCountAggregateOutputType = {
   name: number
   userId: number
   frameWork: number
+  styling: number
   projectStatus: number
   createdAt: number
   updatedAt: number
@@ -61,6 +64,7 @@ export type ProjectMinAggregateInputType = {
   name?: true
   userId?: true
   frameWork?: true
+  styling?: true
   projectStatus?: true
   createdAt?: true
   updatedAt?: true
@@ -71,6 +75,7 @@ export type ProjectMaxAggregateInputType = {
   name?: true
   userId?: true
   frameWork?: true
+  styling?: true
   projectStatus?: true
   createdAt?: true
   updatedAt?: true
@@ -81,6 +86,7 @@ export type ProjectCountAggregateInputType = {
   name?: true
   userId?: true
   frameWork?: true
+  styling?: true
   projectStatus?: true
   createdAt?: true
   updatedAt?: true
@@ -164,6 +170,7 @@ export type ProjectGroupByOutputType = {
   name: string
   userId: string
   frameWork: $Enums.FrameWork
+  styling: $Enums.StylingType
   projectStatus: $Enums.ProjectStatus
   createdAt: Date
   updatedAt: Date
@@ -195,6 +202,7 @@ export type ProjectWhereInput = {
   name?: Prisma.StringFilter<"Project"> | string
   userId?: Prisma.StringFilter<"Project"> | string
   frameWork?: Prisma.EnumFrameWorkFilter<"Project"> | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFilter<"Project"> | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
@@ -209,6 +217,7 @@ export type ProjectOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   frameWork?: Prisma.SortOrder
+  styling?: Prisma.SortOrder
   projectStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -226,6 +235,7 @@ export type ProjectWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Project"> | string
   userId?: Prisma.StringFilter<"Project"> | string
   frameWork?: Prisma.EnumFrameWorkFilter<"Project"> | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFilter<"Project"> | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
@@ -240,6 +250,7 @@ export type ProjectOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   frameWork?: Prisma.SortOrder
+  styling?: Prisma.SortOrder
   projectStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -256,6 +267,7 @@ export type ProjectScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Project"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Project"> | string
   frameWork?: Prisma.EnumFrameWorkWithAggregatesFilter<"Project"> | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeWithAggregatesFilter<"Project"> | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusWithAggregatesFilter<"Project"> | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Project"> | Date | string
@@ -265,6 +277,7 @@ export type ProjectCreateInput = {
   id?: string
   name: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -279,6 +292,7 @@ export type ProjectUncheckedCreateInput = {
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -291,6 +305,7 @@ export type ProjectUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -305,6 +320,7 @@ export type ProjectUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -318,6 +334,7 @@ export type ProjectCreateManyInput = {
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -327,6 +344,7 @@ export type ProjectUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -337,6 +355,7 @@ export type ProjectUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -357,6 +376,7 @@ export type ProjectCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   frameWork?: Prisma.SortOrder
+  styling?: Prisma.SortOrder
   projectStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -367,6 +387,7 @@ export type ProjectMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   frameWork?: Prisma.SortOrder
+  styling?: Prisma.SortOrder
   projectStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -377,6 +398,7 @@ export type ProjectMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   frameWork?: Prisma.SortOrder
+  styling?: Prisma.SortOrder
   projectStatus?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -433,6 +455,10 @@ export type EnumFrameWorkFieldUpdateOperationsInput = {
   set?: $Enums.FrameWork
 }
 
+export type EnumStylingTypeFieldUpdateOperationsInput = {
+  set?: $Enums.StylingType
+}
+
 export type EnumProjectStatusFieldUpdateOperationsInput = {
   set?: $Enums.ProjectStatus
 }
@@ -483,6 +509,7 @@ export type ProjectCreateWithoutUserInput = {
   id?: string
   name: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -495,6 +522,7 @@ export type ProjectUncheckedCreateWithoutUserInput = {
   id?: string
   name: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -537,6 +565,7 @@ export type ProjectScalarWhereInput = {
   name?: Prisma.StringFilter<"Project"> | string
   userId?: Prisma.StringFilter<"Project"> | string
   frameWork?: Prisma.EnumFrameWorkFilter<"Project"> | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFilter<"Project"> | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFilter<"Project"> | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFilter<"Project"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Project"> | Date | string
@@ -546,6 +575,7 @@ export type ProjectCreateWithoutPromptsInput = {
   id?: string
   name: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -559,6 +589,7 @@ export type ProjectUncheckedCreateWithoutPromptsInput = {
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -586,6 +617,7 @@ export type ProjectUpdateWithoutPromptsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -599,6 +631,7 @@ export type ProjectUncheckedUpdateWithoutPromptsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -610,6 +643,7 @@ export type ProjectCreateWithoutGenerationsInput = {
   id?: string
   name: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -623,6 +657,7 @@ export type ProjectUncheckedCreateWithoutGenerationsInput = {
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -650,6 +685,7 @@ export type ProjectUpdateWithoutGenerationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -663,6 +699,7 @@ export type ProjectUncheckedUpdateWithoutGenerationsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -674,6 +711,7 @@ export type ProjectCreateWithoutMemoriesInput = {
   id?: string
   name: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -687,6 +725,7 @@ export type ProjectUncheckedCreateWithoutMemoriesInput = {
   name: string
   userId: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -714,6 +753,7 @@ export type ProjectUpdateWithoutMemoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -727,6 +767,7 @@ export type ProjectUncheckedUpdateWithoutMemoriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -738,6 +779,7 @@ export type ProjectCreateManyUserInput = {
   id?: string
   name: string
   frameWork?: $Enums.FrameWork
+  styling?: $Enums.StylingType
   projectStatus?: $Enums.ProjectStatus
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -747,6 +789,7 @@ export type ProjectUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -759,6 +802,7 @@ export type ProjectUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -771,6 +815,7 @@ export type ProjectUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   frameWork?: Prisma.EnumFrameWorkFieldUpdateOperationsInput | $Enums.FrameWork
+  styling?: Prisma.EnumStylingTypeFieldUpdateOperationsInput | $Enums.StylingType
   projectStatus?: Prisma.EnumProjectStatusFieldUpdateOperationsInput | $Enums.ProjectStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -830,6 +875,7 @@ export type ProjectSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   name?: boolean
   userId?: boolean
   frameWork?: boolean
+  styling?: boolean
   projectStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -845,6 +891,7 @@ export type ProjectSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   userId?: boolean
   frameWork?: boolean
+  styling?: boolean
   projectStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -856,6 +903,7 @@ export type ProjectSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   name?: boolean
   userId?: boolean
   frameWork?: boolean
+  styling?: boolean
   projectStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -867,12 +915,13 @@ export type ProjectSelectScalar = {
   name?: boolean
   userId?: boolean
   frameWork?: boolean
+  styling?: boolean
   projectStatus?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "userId" | "frameWork" | "projectStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
+export type ProjectOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "userId" | "frameWork" | "styling" | "projectStatus" | "createdAt" | "updatedAt", ExtArgs["result"]["project"]>
 export type ProjectInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   prompts?: boolean | Prisma.Project$promptsArgs<ExtArgs>
@@ -900,6 +949,7 @@ export type $ProjectPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     name: string
     userId: string
     frameWork: $Enums.FrameWork
+    styling: $Enums.StylingType
     projectStatus: $Enums.ProjectStatus
     createdAt: Date
     updatedAt: Date
@@ -1334,6 +1384,7 @@ export interface ProjectFieldRefs {
   readonly name: Prisma.FieldRef<"Project", 'String'>
   readonly userId: Prisma.FieldRef<"Project", 'String'>
   readonly frameWork: Prisma.FieldRef<"Project", 'FrameWork'>
+  readonly styling: Prisma.FieldRef<"Project", 'StylingType'>
   readonly projectStatus: Prisma.FieldRef<"Project", 'ProjectStatus'>
   readonly createdAt: Prisma.FieldRef<"Project", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Project", 'DateTime'>

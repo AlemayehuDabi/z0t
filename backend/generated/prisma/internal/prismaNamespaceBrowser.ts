@@ -140,6 +140,7 @@ export const ProjectScalarFieldEnum = {
   name: 'name',
   userId: 'userId',
   frameWork: 'frameWork',
+  styling: 'styling',
   projectStatus: 'projectStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

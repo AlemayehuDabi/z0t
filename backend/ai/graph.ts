@@ -65,6 +65,7 @@ export const GraphAnnotation = Annotation.Root({
   project_id: Annotation<string>,
   userId: Annotation<string>,
   framework: Annotation<string>,
+  styling: Annotation<string>, // styling framework
 
   user_prompt: Annotation<Array<string>>,
 

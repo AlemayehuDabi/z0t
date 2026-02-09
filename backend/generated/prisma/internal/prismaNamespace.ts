@@ -1105,6 +1105,7 @@ export const ProjectScalarFieldEnum = {
   name: 'name',
   userId: 'userId',
   frameWork: 'frameWork',
+  styling: 'styling',
   projectStatus: 'projectStatus',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1227,6 +1228,20 @@ export type EnumFrameWorkFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'FrameWork[]'
  */
 export type ListEnumFrameWorkFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FrameWork[]'>
+    
+
+
+/**
+ * Reference to a field of type 'StylingType'
+ */
+export type EnumStylingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StylingType'>
+    
+
+
+/**
+ * Reference to a field of type 'StylingType[]'
+ */
+export type ListEnumStylingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StylingType[]'>
     
 
 

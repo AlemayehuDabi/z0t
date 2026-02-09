@@ -56,8 +56,8 @@ app.route('/api/auth/*', authRouter);
 // rpc only
 const rpc =
   // protected route
-  // app.use('/api/prompt/*', requireAuth);
-  app.route('/api/prompt', promptRoute);
+  // app.use('/api/generate/*', requireAuth);
+  app.route('/api/generate', promptRoute);
 
 export type AppType = typeof rpc;
 

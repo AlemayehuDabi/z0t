@@ -76,13 +76,13 @@ export const coderNode = async (state: GraphState) => {
   // console.log('The response from the llm for coder node: ', response);
 
   // use adaptor extract the files
-
   const extractedFiles = parseLLMResponse(response);
 
-  // use tool -> rpc and web container
+  // use rpc and streaming and send it to the web container(frontend)
 
-  // save the response to db
+  // 4. PERSISTENCE (Save the result)
+  // TODO: Save the code changes to your database or file system
 
   // return
-  return extractedFiles;
+  return { files: extractedFiles };
 };

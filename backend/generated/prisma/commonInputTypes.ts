@@ -155,6 +155,13 @@ export type EnumFrameWorkFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumFrameWorkFilter<$PrismaModel> | $Enums.FrameWork
 }
 
+export type EnumStylingTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.StylingType | Prisma.EnumStylingTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StylingType[] | Prisma.ListEnumStylingTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StylingType[] | Prisma.ListEnumStylingTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStylingTypeFilter<$PrismaModel> | $Enums.StylingType
+}
+
 export type EnumProjectStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.ProjectStatus | Prisma.EnumProjectStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
@@ -170,6 +177,16 @@ export type EnumFrameWorkWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFrameWorkFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFrameWorkFilter<$PrismaModel>
+}
+
+export type EnumStylingTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StylingType | Prisma.EnumStylingTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StylingType[] | Prisma.ListEnumStylingTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StylingType[] | Prisma.ListEnumStylingTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStylingTypeWithAggregatesFilter<$PrismaModel> | $Enums.StylingType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStylingTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStylingTypeFilter<$PrismaModel>
 }
 
 export type EnumProjectStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -424,6 +441,13 @@ export type NestedEnumFrameWorkFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumFrameWorkFilter<$PrismaModel> | $Enums.FrameWork
 }
 
+export type NestedEnumStylingTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.StylingType | Prisma.EnumStylingTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StylingType[] | Prisma.ListEnumStylingTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StylingType[] | Prisma.ListEnumStylingTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStylingTypeFilter<$PrismaModel> | $Enums.StylingType
+}
+
 export type NestedEnumProjectStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.ProjectStatus | Prisma.EnumProjectStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>
@@ -439,6 +463,16 @@ export type NestedEnumFrameWorkWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumFrameWorkFilter<$PrismaModel>
   _max?: Prisma.NestedEnumFrameWorkFilter<$PrismaModel>
+}
+
+export type NestedEnumStylingTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.StylingType | Prisma.EnumStylingTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.StylingType[] | Prisma.ListEnumStylingTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.StylingType[] | Prisma.ListEnumStylingTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumStylingTypeWithAggregatesFilter<$PrismaModel> | $Enums.StylingType
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumStylingTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumStylingTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumProjectStatusWithAggregatesFilter<$PrismaModel = never> = {

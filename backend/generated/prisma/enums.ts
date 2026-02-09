@@ -46,3 +46,12 @@ export const GenerationType = {
 } as const
 
 export type GenerationType = (typeof GenerationType)[keyof typeof GenerationType]
+
+
+export const StylingType = {
+  TAILWIND: 'TAILWIND',
+  SHADCN: 'SHADCN',
+  MODULECSS: 'MODULECSS'
+} as const
+
+export type StylingType = (typeof StylingType)[keyof typeof StylingType]
