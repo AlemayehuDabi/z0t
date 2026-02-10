@@ -2,8 +2,9 @@ import { GraphState } from '../graph';
 
 export const reviewerNode = async (state: GraphState) => {
   console.log('--- REVIEWER: Verifying ---');
-  // Logic: Check terminal_output and files
-  const verified = state.terminal.logs.includes('success');
+  // Logic: Check terminal_output and files4
 
-  return { is_verified: verified };
+  const verified = state.terminal_result.logs.includes('success');
+
+  return { iteration_count: 1 };
 };

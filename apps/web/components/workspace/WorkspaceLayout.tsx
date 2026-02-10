@@ -1,29 +1,31 @@
-'use client'
+'use client';
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { 
-  Save, 
-  Cloud, 
-  Code2, 
-  Rocket, 
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import {
+  Save,
+  Cloud,
+  Code2,
+  Rocket,
   ChevronDown,
   Terminal,
-  X
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { FrameworkSelector } from "./FrameworkSelector";
-import { PreviewConsole } from "./PreviewConsole";
-import { ChatSidebar } from "./ChatSidebar";
-import { CodeEditor } from "./CodeEditor";
+  X,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { FrameworkSelector } from './FrameworkSelector';
+import { PreviewConsole } from './PreviewConsole';
+import { ChatSidebar } from './ChatSidebar';
+import { CodeEditor } from './CodeEditor';
 
-type Framework = "react" | "vue" | "svelte" | "solid" | "astro";
+type Framework = 'react' | 'vue' | 'svelte' | 'solid' | 'astro';
 
 export function WorkspaceLayout() {
-  const [framework, setFramework] = useState<Framework>("react");
+  const [framework, setFramework] = useState<Framework>('react');
   const [isCodeOpen, setIsCodeOpen] = useState(false);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
-  const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "live">("live");
+  const [saveStatus, setSaveStatus] = useState<'saved' | 'saving' | 'live'>(
+    'live',
+  );
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -33,7 +35,9 @@ export function WorkspaceLayout() {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-md bg-linear-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xs">z0</span>
+              <span className="text-primary-foreground font-bold text-xs">
+                z0
+              </span>
             </div>
             <span className="font-semibold text-sm">z0t</span>
           </div>
@@ -47,10 +51,10 @@ export function WorkspaceLayout() {
               defaultValue="my-dashboard-app"
               className="bg-transparent text-sm font-medium focus:outline-none focus:ring-1 focus:ring-primary rounded px-2 py-1 -ml-2"
             />
-            
+
             {/* Save Status */}
             <div className="flex items-center gap-1.5">
-              {saveStatus === "live" && (
+              {saveStatus === 'live' && (
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -60,10 +64,10 @@ export function WorkspaceLayout() {
                   Live
                 </motion.span>
               )}
-              {saveStatus === "saving" && (
+              {saveStatus === 'saving' && (
                 <span className="text-xs text-muted-foreground">Saving...</span>
               )}
-              {saveStatus === "saved" && (
+              {saveStatus === 'saved' && (
                 <span className="flex items-center gap-1 text-xs text-muted-foreground">
                   <Cloud className="w-3 h-3" />
                   Saved
@@ -84,7 +88,7 @@ export function WorkspaceLayout() {
             variant="ghost"
             size="sm"
             onClick={() => setIsCodeOpen(!isCodeOpen)}
-            className={isCodeOpen ? "bg-secondary" : ""}
+            className={isCodeOpen ? 'bg-secondary' : ''}
           >
             <Code2 className="w-4 h-4 mr-1.5" />
             Code
@@ -99,7 +103,7 @@ export function WorkspaceLayout() {
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Sidebar - Chat */}
-        <div className="w-80 border-r border-border flex-shrink-0">
+        <div className="w-80 border-r border-border shrink-0">
           <ChatSidebar />
         </div>
 
@@ -148,7 +152,11 @@ export function WorkspaceLayout() {
       </div>
 
       {/* Code Editor Drawer */}
-      <CodeEditor isOpen={isCodeOpen} onClose={() => setIsCodeOpen(false)} framework={framework} />
+      <CodeEditor
+        isOpen={isCodeOpen}
+        onClose={() => setIsCodeOpen(false)}
+        framework={framework}
+      />
     </div>
   );
 }

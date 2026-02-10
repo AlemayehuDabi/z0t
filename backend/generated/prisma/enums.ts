@@ -42,7 +42,8 @@ export const GenerationType = {
   ARCHITECTURE: 'ARCHITECTURE',
   CODE: 'CODE',
   REFACTOR: 'REFACTOR',
-  FIX: 'FIX'
+  REVIEW: 'REVIEW',
+  TERMINAL: 'TERMINAL'
 } as const
 
 export type GenerationType = (typeof GenerationType)[keyof typeof GenerationType]

@@ -11,7 +11,7 @@ export const orderedPrompt = (user_prompt: string[]) => {
     })
     .join('\n\n');
 
-  console.log('Formatted History: ', formattedHistory);
+  // console.log('Formatted History: ', formattedHistory);
 
   return formattedHistory;
 };

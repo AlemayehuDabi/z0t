@@ -1,19 +1,29 @@
 import { GraphState } from '../graph';
 
-// 3. Routing Logic (The "Decision" Edge)
-export const routeAfterReview = async (state: GraphState) => {
-  const { is_verified, iteration_count } = state;
+const MAX_RETRIES = 5;
+const PASS_SCORE = 85;
 
-  // If verified, we are done
-  if (is_verified) {
+// 3. Routing Logic (The "Decision" Edge)
+export const routeAfterReview = async (
+  state: GraphState,
+): Promise<'retry_architect' | 'retry_terminal' | 'retry_coder' | 'end'> => {
+  const { iteration_count } = state;
+
+  if (state.review.score >= PASS_SCORE) {
     return 'end';
   }
 
   // If failed but we have retries left, go back to the architect
-  if (iteration_count < 5) {
-    return 'retry';
+  if (iteration_count >= MAX_RETRIES) {
+    return 'end';
   }
 
-  // Safety break: too many iterations
-  return 'end';
+  switch (state.review.retry_from) {
+    case 'architect':
+      return 'retry_architect';
+    case 'code':
+      return 'retry_terminal';
+    default:
+      return 'retry_coder';
+  }
 };

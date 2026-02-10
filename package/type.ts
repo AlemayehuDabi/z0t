@@ -5,7 +5,7 @@ export type FrameworkType = 'REACT' | 'SVELTE' | 'VUE' | 'SOLID' | 'ASTRO';
 export type InteractionMode = 'GENESIS' | 'EVOLUTION';
 
 // 3. The type of tailwind
-export type StylingType = 'TAILWIND';
+export type StylingType = 'TAILWIND' | 'SHADCN' | 'MODULECSS';
 
 // 3. User Preferences (The "How")
 export interface AgentOptions {

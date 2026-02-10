@@ -106,7 +106,8 @@ enum GenerationType {
   ARCHITECTURE
   CODE
   REFACTOR
-  FIX
+  REVIEW
+  TERMINAL
 }
 
 enum StylingType {

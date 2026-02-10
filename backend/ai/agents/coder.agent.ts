@@ -44,8 +44,10 @@ export const coderNode = async (state: GraphState) => {
 
   const user_prompt = state.user_prompt;
   const plan = state.plan;
-  // missing or null state properties
+  const framework = state.framework;
+  const styling = state.styling;
 
+  // missing or null state properties
   if (!user_prompt || !plan) {
     throw new Error(
       'CODER: Misssing required state properties (user_prompt or plan)',
@@ -53,10 +55,10 @@ export const coderNode = async (state: GraphState) => {
   }
 
   // generate system prompt
-  const system_prompt = coderPromptGen(plan);
+  const system_prompt = coderPromptGen(plan, framework, styling);
 
   // logging system prompt
-  console.log('system prompt for coder node: ', system_prompt);
+  // console.log('system prompt for coder node: ', system_prompt);
 
   // formatted prompt
   const formatted_prompt = orderedPrompt(user_prompt);
@@ -67,6 +69,8 @@ export const coderNode = async (state: GraphState) => {
       userPrompt: formatted_prompt,
       systemMessage: system_prompt,
     });
+
+    // console.log('response from coding agent: ', response);
   } catch (error) {
     console.log('CODER: LLM failed', error);
     throw new Error('CODER: LLM failed to response');
@@ -78,7 +82,7 @@ export const coderNode = async (state: GraphState) => {
   // use adaptor extract the files
   const extractedFiles = parseLLMResponse(response);
 
-  // use rpc and streaming and send it to the web container(frontend)
+  console.log({ extractedFiles });
 
   // 4. PERSISTENCE (Save the result)
   // TODO: Save the code changes to your database or file system

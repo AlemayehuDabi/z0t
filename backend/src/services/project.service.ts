@@ -4,6 +4,7 @@ import {
   FrameworkType,
   EvolutionRequest,
 } from '../../../package/type';
+import { GenerationType } from '../../generated/prisma/enums';
 
 export const ProjectService = {
   /**
@@ -77,7 +78,7 @@ export const ProjectService = {
     userContent: string;
     aiOutput: string;
     modelName: string;
-    type: 'CODE' | 'ARCHITECTURE' | 'FIX';
+    type: GenerationType;
   }) {
     // 1. Save the User Prompt
     return await prisma.prompt.create({

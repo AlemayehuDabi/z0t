@@ -1,11 +1,16 @@
 import { Context } from 'hono';
-import { BasePromptRequest } from '../../../package/type';
+import {
+  BasePromptRequest,
+  FrameworkType,
+  StylingType,
+  userPromptRequest,
+} from '../../../package/type';
 import { ProjectService } from './project.service';
 import { streamSSE } from 'hono/streaming';
 import { workflow } from '../../ai/graph';
 
 export async function createPrompt(c: Context) {
-  const requestPayload = await c.req.json();
+  const requestPayload = await c.req.json<userPromptRequest>();
 
   // logging the data from the frontend
   console.log('request payload: ', requestPayload);
@@ -20,10 +25,10 @@ export async function createPrompt(c: Context) {
 
   //  framework and projectId variable for both
   let projectId = '';
-  let frameWork = '';
+  let frameWork: FrameworkType;
   let prompts = [];
   let userId = requestPayload.userId;
-  let styling = '';
+  let styling: StylingType;
 
   // 2. CONTEXT AGGREGATION (The Performance Layer)
   if (mode == 'GENESIS') {
@@ -48,7 +53,7 @@ export async function createPrompt(c: Context) {
     // SAVE the new incoming prompt first so it's part of the history
     await ProjectService.addPrompt(
       requestPayload.projectId,
-      requestPayload.content,
+      requestPayload.prompt,
       'USER',
     );
 
@@ -92,6 +97,7 @@ export async function createPrompt(c: Context) {
         project_id: projectId,
         framework: frameWork,
         styling: styling,
+        mode,
         userId,
       },
       { version: 'v2' },

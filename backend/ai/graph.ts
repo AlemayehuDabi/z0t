@@ -64,9 +64,9 @@ export const GraphAnnotation = Annotation.Root({
   // meta-data and identities
   project_id: Annotation<string>,
   userId: Annotation<string>,
-  framework: Annotation<string>,
-  styling: Annotation<string>, // styling framework
-
+  framework: Annotation<FrameworkType>,
+  styling: Annotation<StylingType>, // styling framework
+  mode: Annotation<InteractionMode>,
   user_prompt: Annotation<Array<string>>,
 
   status: Annotation<AgentStatus>({
@@ -92,8 +92,25 @@ export const GraphAnnotation = Annotation.Root({
     default: () => ({}),
   }),
 
-  // terminal code
   terminal: Annotation<{
+    commands: {
+      cmd: string;
+      reason: string;
+      blocking: boolean;
+    }[];
+    summary: string;
+    confidence: number;
+  }>({
+    reducer: (_, curr) => curr, // always replace, never merge
+    default: () => ({
+      commands: [],
+      summary: '',
+      confidence: 1.0,
+    }),
+  }),
+
+  // terminal code
+  terminal_result: Annotation<{
     logs: string[];
     last_command?: string;
     exit_code?: string;
@@ -112,6 +129,7 @@ export const GraphAnnotation = Annotation.Root({
     feedback: string;
     suggested_fixes?: string;
     score: number;
+    retry_from: string;
   }>({
     reducer: (perv, curr) => ({
       ...perv,
@@ -122,6 +140,7 @@ export const GraphAnnotation = Annotation.Root({
       is_variable: false,
       feedback: '',
       score: 0,
+      retry_from: 'retry_coder',
     }),
   }),
 
