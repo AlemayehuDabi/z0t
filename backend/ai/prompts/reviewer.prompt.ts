@@ -1,8 +1,10 @@
+import { ArchitectPlan, FileNode } from '../graph';
+
 export const reviewerPromptGen = (
   framework: string,
-  plan: Array<string>,
-  files: Array<string>,
-  terminal_output: string,
+  plan: ArchitectPlan,
+  files: Record<string, FileNode>,
+  terminal_output: string[],
 ) => {
   return `
   # ROLE
@@ -127,8 +129,6 @@ No explanations outside the XML.
   </suggested_fixes>
   <next_step>CODING | COMPLETED</next_step>
   <retry_from>coder | architect | terminal</retry_from>
-</review>
-     
-  
+</review>  
   `;
 };
