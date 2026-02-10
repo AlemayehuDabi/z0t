@@ -123,24 +123,31 @@ export const GraphAnnotation = Annotation.Root({
     default: () => ({ logs: [] }),
   }),
 
-  // --- Quality Control (The "Judge") ---
+  // --- Quality Control (The Final Judge) ---
   review: Annotation<{
-    is_variable: boolean;
-    feedback: string;
-    suggested_fixes?: string;
     score: number;
-    retry_from: string;
+    is_verified: boolean;
+
+    verdict: 'APPROVED' | 'REJECTED';
+
+    feedback: string; // Human-readable, brutal but precise
+    suggested_fixes?: string[]; // Atomic, actionable fixes
+
+    retry_from?: 'architect' | 'coder' | 'terminal';
+
+    confidence: number; // How confident the reviewer is in the verdict (0–1)
   }>({
-    reducer: (perv, curr) => ({
-      ...perv,
+    reducer: (prev, curr) => ({
+      ...prev,
       ...curr,
     }),
 
     default: () => ({
-      is_variable: false,
-      feedback: '',
       score: 0,
-      retry_from: 'retry_coder',
+      is_verified: false,
+      verdict: 'REJECTED',
+      feedback: '',
+      confidence: 1.0,
     }),
   }),
 
