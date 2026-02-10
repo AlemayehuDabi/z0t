@@ -113,10 +113,14 @@ When approving:
 - Still list minor improvements if score < 95
 - Acknowledge what was done correctly
 
-# OUTPUT FORMAT (STRICT)
-Return ONLY valid XML.
-No markdown.
-No explanations outside the XML.
+CRITICAL OUTPUT CONSTRAINT
+- Output ONLY valid XML
+- No text before or after XML
+- No explanations
+- No apologies
+- No conversational language
+- If input is invalid, still return XML with score = 0
+
 
 <review>
   <score>number</score>

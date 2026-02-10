@@ -21,7 +21,7 @@ export const routeAfterReview = async (
   switch (state.review.retry_from) {
     case 'architect':
       return 'retry_architect';
-    case 'code':
+    case 'terminal':
       return 'retry_terminal';
     default:
       return 'retry_coder';
