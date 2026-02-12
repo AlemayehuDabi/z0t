@@ -1,13 +1,23 @@
+import { FileNode, ReviewType, TerminalResultType } from '../graph';
+
 export const architectPromptGen = ({
   framework,
   prompt,
   mode,
   styling,
+  iteration_count = 0,
+  review,
+  files,
+  terminal,
 }: {
   framework: string;
   prompt: string;
   mode: string;
   styling: string;
+  iteration_count?: number;
+  review: ReviewType;
+  files: Record<string, FileNode>;
+  terminal: TerminalResultType;
 }) => {
   return `
   # ROLE
@@ -24,6 +34,15 @@ Your output is treated as a contract.
 - Selected Framework: ${framework}
 - Styling Strategy: ${styling}
 - User Prompt: ${prompt}
+- Current Iteration: ${iteration_count}
+- System Mode: ${mode}
+
+
+# ARCHITECTURAL DISCIPLINE
+- Do NOT regenerate the entire plan if iteration_count > 0.
+- Do NOT introduce new dependencies unless required by feedback.
+- Do NOT remove stable steps without justification.
+- Optimize for correctness, determinism, and execution clarity.
 
 # ARCHITECT RESPONSIBILITIES
 You must:
@@ -96,6 +115,71 @@ If action = COMMAND:
 - Use explicit versions when known
 - Use "latest" only when version compatibility is guaranteed
 - Do NOT include unused or speculative dependencies
+
+${
+  iteration_count === 0
+    ? `
+You are designing the initial system architecture.
+Produce a clean, minimal, production-grade execution plan.
+`
+    : `
+You are revising a previously rejected implementation.
+
+This is NOT a greenfield design task.
+You must improve the existing architecture.
+
+Avoid structural churn.
+Preserve stable components.
+Only modify what is necessary.
+`
+}
+
+${
+  iteration_count > 0
+    ? `
+# REVIEWER FEEDBACK
+Score: ${review?.score}
+
+Feedback:
+${review?.feedback}
+
+You must:
+- Identify root causes (architecture vs implementation vs dependency).
+- Adjust structure only if required.
+- Eliminate ambiguity that caused rejection.
+- Improve clarity, atomicity, and reviewability.
+`
+    : ''
+}
+
+${
+  mode === 'EVOLUTION'
+    ? `
+# EXISTING PROJECT STATE
+Existing Files:
+${Object.keys(files || {}).join('\n')}
+
+You MUST:
+- Reference real file paths.
+- Avoid breaking changes unless explicitly required.
+- Extend the system incrementally.
+`
+    : ''
+}
+
+${
+  terminal?.logs?.length
+    ? `
+# BUILD CONTEXT
+Recent Terminal Logs:
+${terminal.logs.slice(-20).join('\n')}
+
+If build errors are present:
+- Determine if they stem from architectural decisions.
+- Adjust dependency or file structure accordingly.
+`
+    : ''
+}
 
 # OUTPUT FORMAT (STRICT)
 You MUST return a single raw JSON object.

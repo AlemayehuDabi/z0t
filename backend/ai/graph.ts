@@ -40,11 +40,45 @@ export interface ArchitectPlan {
   dependencies: Record<string, string>; // name -> version
 }
 
+// 2.review
+export interface ReviewType {
+  score: number;
+  is_verified: boolean;
+
+  verdict: 'APPROVED' | 'REJECTED';
+
+  feedback: string; // Human-readable, brutal but precise
+  suggested_fixes?: string[]; // Atomic, actionable fixes
+
+  retry_from?: 'architect' | 'coder' | 'terminal';
+
+  confidence: number; // How confident the reviewer is in the verdict (0–1)
+}
+
+// 3. file node
 export interface FileNode {
   path: string;
   content: string;
   isBinary: boolean;
   lastUpdated: number; // Timestamp for HMR (Hot Module Replacement) optimization
+}
+
+// 4. terminal type
+export interface TerminalType {
+  commands: {
+    cmd: string;
+    reason: string;
+    blocking: boolean;
+  }[];
+  summary: string;
+  confidence: number;
+}
+
+// 5. termial result type
+export interface TerminalResultType {
+  logs: string[];
+  last_command?: string;
+  exit_code?: string;
 }
 
 // status of the agent
@@ -92,15 +126,7 @@ export const GraphAnnotation = Annotation.Root({
     default: () => ({}),
   }),
 
-  terminal: Annotation<{
-    commands: {
-      cmd: string;
-      reason: string;
-      blocking: boolean;
-    }[];
-    summary: string;
-    confidence: number;
-  }>({
+  terminal: Annotation<TerminalType>({
     reducer: (_, curr) => curr, // always replace, never merge
     default: () => ({
       commands: [],
@@ -110,11 +136,7 @@ export const GraphAnnotation = Annotation.Root({
   }),
 
   // terminal code
-  terminal_result: Annotation<{
-    logs: string[];
-    last_command?: string;
-    exit_code?: string;
-  }>({
+  terminal_result: Annotation<TerminalResultType>({
     reducer: (perv, curr) => ({
       ...perv,
       ...curr,
@@ -124,19 +146,7 @@ export const GraphAnnotation = Annotation.Root({
   }),
 
   // --- Quality Control (The Final Judge) ---
-  review: Annotation<{
-    score: number;
-    is_verified: boolean;
-
-    verdict: 'APPROVED' | 'REJECTED';
-
-    feedback: string; // Human-readable, brutal but precise
-    suggested_fixes?: string[]; // Atomic, actionable fixes
-
-    retry_from?: 'architect' | 'coder' | 'terminal';
-
-    confidence: number; // How confident the reviewer is in the verdict (0–1)
-  }>({
+  review: Annotation<ReviewType>({
     reducer: (prev, curr) => ({
       ...prev,
       ...curr,
@@ -178,7 +188,9 @@ export const workflow = new StateGraph(GraphAnnotation)
 
   // conditional edge
   .addConditionalEdges('reviewerNode', routeAfterReview, {
-    retry: 'architectNode',
+    retry_architect: 'architectNode',
+    retry_coder: 'coderNode',
+    retry_terminal: 'terminalNode',
     end: '__end__',
   })
 

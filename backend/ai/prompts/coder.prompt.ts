@@ -22,6 +22,19 @@ The plan is the single source of truth.
 - Target Framework: ${framework}
 - Styling System: ${styling}
 - Runtime: WebContainer (Node.js browser environment)
+- Current Iteration: ${iteration_count}
+
+You must:
+- Modify only files listed in the architectural plan.
+- Not delete stable files unless instructed.
+- Ensure imports match the real project structure.
+
+# BUILD DISCIPLINE
+- Avoid introducing new dependencies unless specified in plan.
+- Ensure all imports resolve.
+- Avoid duplicate components.
+- Maintain accessibility and performance standards.
+
 
 # INPUT ARTIFACT
 PROJECT PLAN:
@@ -86,6 +99,44 @@ All code must be:
 - No partial files
 - No placeholders
 - No ellipses
+
+
+${
+  iteration_count === 0
+    ? `
+You are implementing the architecture for the first time.
+Follow the plan exactly.
+`
+    : `
+You are fixing a previously rejected implementation.
+
+You are NOT rewriting everything.
+You are performing a surgical correction.
+`
+}
+
+${
+  iteration_count > 0
+    ? `
+# REVIEWER FEEDBACK
+Score: ${review?.score}
+
+Feedback:
+${review?.feedback}
+
+You must:
+- Fix only the reported issues.
+- Preserve correct components.
+- Avoid unnecessary refactors.
+- Improve code quality where defects were identified.
+`
+    : ''
+}
+
+# FILE SYSTEM STATE
+
+Existing Files:
+${Object.keys(files || {}).join('\n')}
 
 # OUTPUT FORMAT (STRICT)
 - Output ONLY <file> blocks

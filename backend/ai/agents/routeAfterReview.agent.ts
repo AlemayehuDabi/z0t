@@ -1,6 +1,6 @@
 import { GraphState } from '../graph';
 
-const MAX_RETRIES = 5;
+const MAX_RETRIES = 3;
 const PASS_SCORE = 85;
 
 // 3. Routing Logic (The "Decision" Edge)
