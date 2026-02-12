@@ -18,7 +18,8 @@ export const terminalNode = async (state: GraphState) => {
   const systemMessage = terminalPromptGen(
     state.plan,
     state.files,
-    state.terminal_result.last_command,
+    state.iteration_count,
+    state.terminal_result,
     logs,
   );
 

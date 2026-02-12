@@ -20,8 +20,12 @@ export const architectNode = async (state: GraphState) => {
   const prompt = architectPromptGen({
     framework: frameWork,
     prompt: formattedPrompt,
-    styling: state.styling,
     mode,
+    styling: state.styling,
+    iteration_count: state.iteration_count,
+    review: state.review,
+    files: state.files,
+    terminal: state.terminal_result,
   });
 
   // 4. aiOutput

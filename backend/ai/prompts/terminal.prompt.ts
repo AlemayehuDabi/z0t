@@ -1,9 +1,10 @@
-import { ArchitectPlan, FileNode } from '../graph';
+import { ArchitectPlan, FileNode, TerminalResultType } from '../graph';
 
 export const terminalPromptGen = (
   plan: ArchitectPlan,
   files: Record<string, FileNode>,
-  last_command?: string,
+  iteration_count: number,
+  terminal?: TerminalResultType,
   logs?: string,
 ) => {
   return `
@@ -40,7 +41,7 @@ ${plan}
 ${files}
 
 3. PREVIOUS TERMINAL STATE (if any)
-${last_command}
+${terminal?.last_command}
 
 4. This is the pervious log from the pervious command (if any)
 ${logs}
@@ -93,6 +94,66 @@ If the dependency already exists:
 - If a build step is required, infer the correct command
 - If a dev server is required, infer the correct command
 - Never run both unless explicitly required
+
+# EXECUTION STATE
+
+Current Iteration: ${iteration_count}
+
+# ARCHITECT PLAN SUMMARY
+Required Packages:
+${plan?.packages?.join('\n')}
+
+Declared Dependencies:
+${JSON.stringify(plan?.dependencies || {}, null, 2)}
+
+# EXISTING FILE SYSTEM
+Files:
+${Object.keys(files || {}).join('\n')}
+
+${
+  terminal?.logs?.length
+    ? `
+# PREVIOUS TERMINAL LOGS
+${terminal.logs.slice(-20).join('\n')}
+`
+    : ''
+}
+
+# TERMINAL RESPONSIBILITIES
+
+You must determine:
+
+1. Which dependencies need installation
+2. Which commands are required for setup
+3. Whether a build command is required
+4. Whether prior failures need corrective commands
+
+# STRICT RULES
+
+- Do NOT repeat commands already executed successfully.
+- Do NOT reinstall dependencies unnecessarily.
+- Do NOT invent commands not required by the plan.
+- Only generate commands that directly support the architecture.
+
+# PHASE RULES
+
+If phase = SETUP:
+- Install missing dependencies only.
+- Do NOT run build or dev server.
+
+If phase = VALIDATION:
+- If project has a "build" script → run: npm run build
+- Else if project has "typecheck" → run it
+- Do NOT start dev server.
+
+If phase = PREVIEW:
+- If project has a "dev" script → run: npm run dev
+- Else if project has "start" → run npm start
+- Do NOT run build unless explicitly required.
+
+so include every command necessary for the app to work!!!
+
+If no commands are required, return an empty command set.
 
 # OUTPUT CONTRACT (STRICT)
 You must return a single JSON object.
