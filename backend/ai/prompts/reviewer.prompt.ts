@@ -51,7 +51,7 @@ The JSON schema must exactly match:
   "score": number,
   "is_verified": boolean,
   "verdict": "APPROVED" | "REJECTED",
-  "feedback": string,
+  "feedback": string[],
   "suggested_fixes": string[],
   "retry_from": "coder" | "architect" | "terminal",
   "confidence": number
@@ -67,11 +67,10 @@ The JSON schema must exactly match:
 - retry_from: which agent should perform the next iteration if rejected
 - confidence: 0.0–1.0, how confident you are in your evaluation
 
-# ENFORCEMENT
-- Do not output XML
-- Do not output markdown
-- Do not include explanations
-- Output valid, parseable JSON only
-- Be precise, deterministic, and actionable
+# STRICT ENFORCEMENT
+- Output nothing except the JSON above.
+- Do not explain, justify, or comment.
+- Be precise, deterministic, and actionable.
+- If the codebase is empty or invalid, return score = 0.
   `;
 };

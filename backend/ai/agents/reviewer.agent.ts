@@ -39,7 +39,7 @@ export const reviewerNode = async (state: GraphState) => {
       score: 0,
       is_verified: false,
       verdict: 'REJECTED',
-      feedback: 'Reviewer returned invalid JSON format.',
+      feedback: ['Reviewer returned invalid JSON format.'],
       suggested_fixes: ['Ensure reviewer returns valid JSON.'],
       retry_from: 'coder',
       confidence: 0,

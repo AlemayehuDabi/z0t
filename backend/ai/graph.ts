@@ -47,7 +47,7 @@ export interface ReviewType {
 
   verdict: 'APPROVED' | 'REJECTED';
 
-  feedback: string; // Human-readable, brutal but precise
+  feedback: string[]; // Human-readable, brutal but precise
   suggested_fixes?: string[]; // Atomic, actionable fixes
 
   retry_from?: 'architect' | 'coder' | 'terminal';
@@ -156,7 +156,7 @@ export const GraphAnnotation = Annotation.Root({
       score: 0,
       is_verified: false,
       verdict: 'REJECTED',
-      feedback: '',
+      feedback: [''],
       confidence: 1.0,
     }),
   }),
