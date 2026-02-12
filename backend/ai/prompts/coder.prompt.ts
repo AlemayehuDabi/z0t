@@ -1,11 +1,14 @@
 import { FrameworkType, StylingType } from '../../../package/type';
-import { ArchitectPlan } from '../graph';
+import { ArchitectPlan, FileNode, ReviewType } from '../graph';
 
 // modified later
 export const coderPromptGen = (
   plan: ArchitectPlan,
   framework: FrameworkType,
   styling: StylingType,
+  iteration_count: number,
+  review?: ReviewType,
+  files?: Record<string, FileNode>,
 ) => {
   return `
   # ROLE

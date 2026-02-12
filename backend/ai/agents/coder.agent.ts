@@ -46,6 +46,9 @@ export const coderNode = async (state: GraphState) => {
   const plan = state.plan;
   const framework = state.framework;
   const styling = state.styling;
+  const iteration_count = state.iteration_count;
+  const review = state.review;
+  const files = state.files;
 
   // missing or null state properties
   if (!user_prompt || !plan) {
@@ -55,7 +58,14 @@ export const coderNode = async (state: GraphState) => {
   }
 
   // generate system prompt
-  const system_prompt = coderPromptGen(plan, framework, styling);
+  const system_prompt = coderPromptGen(
+    plan,
+    framework,
+    styling,
+    iteration_count,
+    review,
+    files,
+  );
 
   // logging system prompt
   // console.log('system prompt for coder node: ', system_prompt);
