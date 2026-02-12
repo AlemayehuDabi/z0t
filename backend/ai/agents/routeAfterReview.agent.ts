@@ -3,22 +3,26 @@ import { GraphState } from '../graph';
 const MAX_RETRIES = 3;
 const PASS_SCORE = 85;
 
-// 3. Routing Logic (The "Decision" Edge)
 export const routeAfterReview = async (
   state: GraphState,
 ): Promise<'retry_architect' | 'retry_terminal' | 'retry_coder' | 'end'> => {
-  const { iteration_count } = state;
+  const { iteration_count, review } = state;
 
-  if (state.review.score >= PASS_SCORE) {
+  if (review.score >= PASS_SCORE) {
     return 'end';
   }
 
-  // If failed but we have retries left, go back to the architect
   if (iteration_count >= MAX_RETRIES) {
+    console.log('end b/c of max retries');
+
+    console.log('----------- Max_retries ----------\n \n');
+    console.log(`${state}\n`);
+
+    console.log('Done!!!');
     return 'end';
   }
 
-  switch (state.review.retry_from) {
+  switch (review.retry_from) {
     case 'architect':
       return 'retry_architect';
     case 'terminal':
