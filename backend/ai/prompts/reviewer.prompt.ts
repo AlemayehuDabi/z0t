@@ -72,5 +72,10 @@ The JSON schema must exactly match:
 - Do not explain, justify, or comment.
 - Be precise, deterministic, and actionable.
 - If the codebase is empty or invalid, return score = 0.
+- Do not output XML
+- Do not output markdown
+- Do not include explanations
+- Output valid, parseable JSON only
+- Do NOT include ${'```json or ```'} anywhere
   `;
 };

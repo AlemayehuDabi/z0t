@@ -21,12 +21,14 @@ export const reviewerNode = async (state: GraphState) => {
   );
 
   // Call the AI
-  const raw = await getGroqResponse({
+  let raw = await getGroqResponse({
     userPrompt: state.user_prompt.join('\n'),
     systemMessage: systemPrompt,
   });
 
   console.log({ raw });
+
+  raw = raw.replace(/^```json\s*/, '').replace(/```$/, '');
 
   // Parse safely
   let review: ReviewType;
