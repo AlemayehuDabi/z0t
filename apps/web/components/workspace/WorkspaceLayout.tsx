@@ -36,7 +36,7 @@ export function WorkspaceLayout() {
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-md bg-linear-to-br from-primary to-accent flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-xs">
-                z0
+                z0t
               </span>
             </div>
             <span className="font-semibold text-sm">z0t</span>

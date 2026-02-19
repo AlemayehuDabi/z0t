@@ -1,6 +1,5 @@
 import { Context } from 'hono';
 import {
-  BasePromptRequest,
   FrameworkType,
   StylingType,
   userPromptRequest,
@@ -88,7 +87,6 @@ export async function createPrompt(c: Context) {
   const promptHistory = prompts.map((p) => p.content).reverse();
 
   // 3. MULTI-AGENT DISPATCH (The "Brain" Layer) - stream events
-
   return streamSSE(c, async (stream) => {
     // stream event input/option
     const eventStream = workflow.streamEvents(

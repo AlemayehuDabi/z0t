@@ -1,57 +1,92 @@
-'use client'
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Send, Sparkles, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Send, Sparkles, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { authClient } from '@/lib/auth-client';
 
 interface Message {
   id: string;
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
   code?: string;
 }
 
 const initialMessages: Message[] = [
   {
-    id: "1",
-    role: "assistant",
-    content: "Welcome to z0t! I'm your AI co-pilot. Describe what you want to build, and I'll generate the code instantly.",
+    id: '1',
+    role: 'assistant',
+    content:
+      "Welcome to z0t! I'm your AI co-pilot. Describe what you want to build, and I'll generate the code instantly.",
   },
 ];
 
 export function ChatSidebar() {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim() || isThinking) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
-      role: "user",
+      role: 'user',
       content: input,
     };
 
+    const userId = await authClient.getSession();
+
+    const bodyReq = {
+      mode: 'GENESIS',
+      prompt: input,
+      userId,
+      projectSetup: {
+        name: 'amazon clone',
+        framework: 'REACT',
+        styling: 'TAILWIND',
+      },
+    };
+
+    try {
+      const res = await fetch('http://localhost:4000', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bodyReq),
+      });
+
+      if (res.ok) {
+        throw new Error('Error is responsed');
+      }
+
+      const data = await res.json();
+
+      console.log('The Agent Backend response: ', data);
+    } catch (error) {
+      console.log('error: ', error);
+    }
+
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    setInput('');
     setIsThinking(true);
 
     // Simulate AI response
     setTimeout(() => {
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
-        role: "assistant",
+        role: 'assistant',
         content: "I'll create that for you. Here's the component:",
         code: `export function ${input.split(' ').slice(0, 2).join('')}() {
   return (
@@ -61,6 +96,7 @@ export function ChatSidebar() {
   );
 }`,
       };
+
       setMessages((prev) => [...prev, assistantMessage]);
       setIsThinking(false);
     }, 2000);
@@ -70,7 +106,7 @@ export function ChatSidebar() {
     <div className="flex flex-col h-full bg-sidebar">
       {/* Header */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-sidebar-border">
-        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+        <div className="w-6 h-6 rounded-md bg-linear-to-br from-primary to-accent flex items-center justify-center">
           <Sparkles className="w-3.5 h-3.5 text-primary-foreground" />
         </div>
         <span className="font-semibold text-sm">z0t AI</span>
@@ -83,13 +119,13 @@ export function ChatSidebar() {
             key={message.id}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
           >
             <div
               className={`max-w-[85%] rounded-xl px-4 py-2.5 ${
-                message.role === "user"
-                  ? "bg-primary text-primary-foreground"
-                  : "glass-card"
+                message.role === 'user'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'glass-card'
               }`}
             >
               <p className="text-sm leading-relaxed">{message.content}</p>
@@ -128,7 +164,7 @@ export function ChatSidebar() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Describe what you want..."
             className="flex-1 bg-sidebar-accent border border-sidebar-border rounded-lg px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           />

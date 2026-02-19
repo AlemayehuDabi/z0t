@@ -28,7 +28,7 @@ export interface GenesisRequest extends BasePromptRequest {
     framework: FrameworkType;
     styling: StylingType;
     template?: 'BLANK' | 'LANDING_PAGE' | 'DASHBOARD';
-    // capabilities: string[]; // e.g., ["AUTH", "DATABASE", "STRIPE"]  since it is only ui
+    capabilities?: string[]; // e.g., ["AUTH", "DATABASE", "STRIPE"]  since it is only ui
   };
 }
 
