@@ -3,7 +3,7 @@ import { cors } from 'hono/cors';
 import authRouter from './routes/auth.route';
 import promptRoute from './routes/prompt.route';
 import { auth } from '../libs/auth';
-// import { requireAuth } from './middleware/auth.guard';
+import { requireAuth } from './middleware/auth.guard';
 
 // later for production
 // import { serve } from 'inngest/hono';
@@ -56,8 +56,7 @@ app.route('/api/auth/*', authRouter);
 // rpc only
 const rpc =
   // protected route
-  // app.use('/api/generate/*', requireAuth);
-  app.route('/api/generate', promptRoute);
+  app.use('/api/generate/*', requireAuth).route('/api/generate', promptRoute);
 
 export type AppType = typeof rpc;
 

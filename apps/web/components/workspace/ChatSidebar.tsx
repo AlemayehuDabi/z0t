@@ -45,12 +45,16 @@ export function ChatSidebar() {
       content: input,
     };
 
-    const userId = await authClient.getSession();
+    const { data, error } = await authClient.getSession();
+
+    if (error) {
+      throw new Error('Better auth error');
+    }
 
     const bodyReq = {
       mode: 'GENESIS',
       prompt: input,
-      userId,
+      userId: data?.user.id,
       projectSetup: {
         name: 'amazon clone',
         framework: 'REACT',
@@ -59,11 +63,12 @@ export function ChatSidebar() {
     };
 
     try {
-      const res = await fetch('http://localhost:4000', {
+      const res = await fetch('http://localhost:4000/api/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(bodyReq),
       });
 
