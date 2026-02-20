@@ -9,6 +9,8 @@ export const routeAfterReview = async (
   const { iteration_count, review } = state;
 
   if (review.score >= PASS_SCORE) {
+    console.log('review greater that pass score.');
+    console.log('Done!!!');
     return 'end';
   }
 
@@ -18,6 +20,7 @@ export const routeAfterReview = async (
     console.log('----------- Max_retries ----------\n \n');
     console.log(`${state}\n`);
 
+    console.log('max retries');
     console.log('Done!!!');
     return 'end';
   }
