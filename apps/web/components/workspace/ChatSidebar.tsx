@@ -27,6 +27,8 @@ export function ChatSidebar() {
   const [input, setInput] = useState('');
   const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [code, setCode] = useState('');
+  const [status, setStatus] = useState('');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -51,6 +53,24 @@ export function ChatSidebar() {
       throw new Error('Better auth error');
     }
 
+    // Simulate AI response
+    setTimeout(() => {
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: "I'll create that for you. Here's the component:",
+        code: `export function ${input.split(' ').slice(0, 2).join('')}() {
+  return (
+    <div className="p-4">
+      <h2>Generated Component</h2>
+    </div>
+  );
+}`,
+      };
+
+      setMessages((prev) => [...prev, assistantMessage]);
+    }, 2000);
+
     const bodyReq = {
       mode: 'GENESIS',
       prompt: input,
@@ -72,13 +92,42 @@ export function ChatSidebar() {
         body: JSON.stringify(bodyReq),
       });
 
-      if (res.ok) {
+      if (!res.ok) {
         throw new Error('Error is responsed');
       }
 
-      const data = await res.json();
+      const reader = res.body?.getReader();
+      const decoder = new TextDecoder();
 
-      console.log('The Agent Backend response: ', data);
+      if (!reader) return;
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) return;
+
+        console.log('this is the value', value);
+
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+
+        let currentEvent = '';
+
+        for (const line of lines) {
+          if (line.startsWith('event: ')) {
+            currentEvent = line.replace('event: ', '').trim();
+          } else if (line.startsWith('data: ')) {
+            const data = line.replace('data: ', '').trim();
+            if (currentEvent === 'token') {
+              setCode((prev) => prev + data);
+            } else if (currentEvent === 'status') {
+              setStatus(data);
+            } else if (currentEvent === 'final_files') {
+              const files = JSON.parse(data);
+              console.log('FILES READY FOR WEBCONTAINER:', files);
+            }
+          }
+        }
+      }
     } catch (error) {
       console.log('error: ', error);
     }
@@ -87,25 +136,10 @@ export function ChatSidebar() {
     setInput('');
     setIsThinking(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: "I'll create that for you. Here's the component:",
-        code: `export function ${input.split(' ').slice(0, 2).join('')}() {
-  return (
-    <div className="p-4">
-      <h2>Generated Component</h2>
-    </div>
-  );
-}`,
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-      setIsThinking(false);
-    }, 2000);
+    setIsThinking(false);
   };
+
+  console.log('This is the code response: ', code);
 
   return (
     <div className="flex flex-col h-full bg-sidebar">

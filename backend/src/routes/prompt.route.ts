@@ -9,7 +9,7 @@ const promptRoute = app.post('/', async (c) => {
   console.log();
 
   return c.json({
-    prompt,
+    message: 'Your app is on it way!',
   });
 });
 

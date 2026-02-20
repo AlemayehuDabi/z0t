@@ -1131,7 +1131,7 @@ export const GenerationScalarFieldEnum = {
   projectId: 'projectId',
   promptId: 'promptId',
   type: 'type',
-  inputContext: 'inputContext',
+  outputFormat: 'outputFormat',
   output: 'output',
   modelUsed: 'modelUsed',
   tokenCount: 'tokenCount',
@@ -1160,6 +1160,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -1174,6 +1181,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1298,6 +1314,34 @@ export type EnumGenerationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$P
  * Reference to a field of type 'GenerationType[]'
  */
 export type ListEnumGenerationTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GenerationType[]'>
+    
+
+
+/**
+ * Reference to a field of type 'OutputFormat'
+ */
+export type EnumOutputFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OutputFormat'>
+    
+
+
+/**
+ * Reference to a field of type 'OutputFormat[]'
+ */
+export type ListEnumOutputFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OutputFormat[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 

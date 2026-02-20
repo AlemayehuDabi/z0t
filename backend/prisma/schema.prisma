@@ -116,6 +116,12 @@ enum StylingType {
   MODULECSS
 }
 
+// output format
+enum OutputFormat {
+  TEXT // simple markdown/text
+  FILE_TREE // structured files
+}
+
 // project
 model Project {
   id            String          @id @default(cuid())
@@ -156,10 +162,10 @@ model Generation {
   promptId String
   prompt   Prompt @relation(fields: [promptId], references: [id], onDelete: Cascade)
 
-  type GenerationType // ARCHITECTURE | CODE | REFACTOR | FIX
+  type         GenerationType // ARCHITECTURE | CODE | REFACTOR | FIX
+  outputFormat OutputFormat
 
-  inputContext String? // optional extra context (existing code, errors, etc.)
-  output       String // AI response (markdown, code, text)
+  output Json // agent output
 
   modelUsed  String // gpt-4, claude, etc.
   tokenCount Int?

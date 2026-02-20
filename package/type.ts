@@ -1,3 +1,5 @@
+import { FileNode } from '../backend/ai/graph';
+
 // 1. Frameworks supported by the system
 export type FrameworkType = 'REACT' | 'SVELTE' | 'VUE' | 'SOLID' | 'ASTRO';
 

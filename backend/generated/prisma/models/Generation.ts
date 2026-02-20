@@ -39,8 +39,7 @@ export type GenerationMinAggregateOutputType = {
   projectId: string | null
   promptId: string | null
   type: $Enums.GenerationType | null
-  inputContext: string | null
-  output: string | null
+  outputFormat: $Enums.OutputFormat | null
   modelUsed: string | null
   tokenCount: number | null
   createdAt: Date | null
@@ -51,8 +50,7 @@ export type GenerationMaxAggregateOutputType = {
   projectId: string | null
   promptId: string | null
   type: $Enums.GenerationType | null
-  inputContext: string | null
-  output: string | null
+  outputFormat: $Enums.OutputFormat | null
   modelUsed: string | null
   tokenCount: number | null
   createdAt: Date | null
@@ -63,7 +61,7 @@ export type GenerationCountAggregateOutputType = {
   projectId: number
   promptId: number
   type: number
-  inputContext: number
+  outputFormat: number
   output: number
   modelUsed: number
   tokenCount: number
@@ -85,8 +83,7 @@ export type GenerationMinAggregateInputType = {
   projectId?: true
   promptId?: true
   type?: true
-  inputContext?: true
-  output?: true
+  outputFormat?: true
   modelUsed?: true
   tokenCount?: true
   createdAt?: true
@@ -97,8 +94,7 @@ export type GenerationMaxAggregateInputType = {
   projectId?: true
   promptId?: true
   type?: true
-  inputContext?: true
-  output?: true
+  outputFormat?: true
   modelUsed?: true
   tokenCount?: true
   createdAt?: true
@@ -109,7 +105,7 @@ export type GenerationCountAggregateInputType = {
   projectId?: true
   promptId?: true
   type?: true
-  inputContext?: true
+  outputFormat?: true
   output?: true
   modelUsed?: true
   tokenCount?: true
@@ -208,8 +204,8 @@ export type GenerationGroupByOutputType = {
   projectId: string
   promptId: string
   type: $Enums.GenerationType
-  inputContext: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: runtime.JsonValue
   modelUsed: string
   tokenCount: number | null
   createdAt: Date
@@ -243,8 +239,8 @@ export type GenerationWhereInput = {
   projectId?: Prisma.StringFilter<"Generation"> | string
   promptId?: Prisma.StringFilter<"Generation"> | string
   type?: Prisma.EnumGenerationTypeFilter<"Generation"> | $Enums.GenerationType
-  inputContext?: Prisma.StringNullableFilter<"Generation"> | string | null
-  output?: Prisma.StringFilter<"Generation"> | string
+  outputFormat?: Prisma.EnumOutputFormatFilter<"Generation"> | $Enums.OutputFormat
+  output?: Prisma.JsonFilter<"Generation">
   modelUsed?: Prisma.StringFilter<"Generation"> | string
   tokenCount?: Prisma.IntNullableFilter<"Generation"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Generation"> | Date | string
@@ -257,7 +253,7 @@ export type GenerationOrderByWithRelationInput = {
   projectId?: Prisma.SortOrder
   promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  inputContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  outputFormat?: Prisma.SortOrder
   output?: Prisma.SortOrder
   modelUsed?: Prisma.SortOrder
   tokenCount?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -274,8 +270,8 @@ export type GenerationWhereUniqueInput = Prisma.AtLeast<{
   projectId?: Prisma.StringFilter<"Generation"> | string
   promptId?: Prisma.StringFilter<"Generation"> | string
   type?: Prisma.EnumGenerationTypeFilter<"Generation"> | $Enums.GenerationType
-  inputContext?: Prisma.StringNullableFilter<"Generation"> | string | null
-  output?: Prisma.StringFilter<"Generation"> | string
+  outputFormat?: Prisma.EnumOutputFormatFilter<"Generation"> | $Enums.OutputFormat
+  output?: Prisma.JsonFilter<"Generation">
   modelUsed?: Prisma.StringFilter<"Generation"> | string
   tokenCount?: Prisma.IntNullableFilter<"Generation"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Generation"> | Date | string
@@ -288,7 +284,7 @@ export type GenerationOrderByWithAggregationInput = {
   projectId?: Prisma.SortOrder
   promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  inputContext?: Prisma.SortOrderInput | Prisma.SortOrder
+  outputFormat?: Prisma.SortOrder
   output?: Prisma.SortOrder
   modelUsed?: Prisma.SortOrder
   tokenCount?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -308,8 +304,8 @@ export type GenerationScalarWhereWithAggregatesInput = {
   projectId?: Prisma.StringWithAggregatesFilter<"Generation"> | string
   promptId?: Prisma.StringWithAggregatesFilter<"Generation"> | string
   type?: Prisma.EnumGenerationTypeWithAggregatesFilter<"Generation"> | $Enums.GenerationType
-  inputContext?: Prisma.StringNullableWithAggregatesFilter<"Generation"> | string | null
-  output?: Prisma.StringWithAggregatesFilter<"Generation"> | string
+  outputFormat?: Prisma.EnumOutputFormatWithAggregatesFilter<"Generation"> | $Enums.OutputFormat
+  output?: Prisma.JsonWithAggregatesFilter<"Generation">
   modelUsed?: Prisma.StringWithAggregatesFilter<"Generation"> | string
   tokenCount?: Prisma.IntNullableWithAggregatesFilter<"Generation"> | number | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Generation"> | Date | string
@@ -318,8 +314,8 @@ export type GenerationScalarWhereWithAggregatesInput = {
 export type GenerationCreateInput = {
   id?: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -332,8 +328,8 @@ export type GenerationUncheckedCreateInput = {
   projectId: string
   promptId: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -342,8 +338,8 @@ export type GenerationUncheckedCreateInput = {
 export type GenerationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -356,8 +352,8 @@ export type GenerationUncheckedUpdateInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   promptId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -368,8 +364,8 @@ export type GenerationCreateManyInput = {
   projectId: string
   promptId: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -378,8 +374,8 @@ export type GenerationCreateManyInput = {
 export type GenerationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -390,8 +386,8 @@ export type GenerationUncheckedUpdateManyInput = {
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   promptId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -412,7 +408,7 @@ export type GenerationCountOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  inputContext?: Prisma.SortOrder
+  outputFormat?: Prisma.SortOrder
   output?: Prisma.SortOrder
   modelUsed?: Prisma.SortOrder
   tokenCount?: Prisma.SortOrder
@@ -428,8 +424,7 @@ export type GenerationMaxOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  inputContext?: Prisma.SortOrder
-  output?: Prisma.SortOrder
+  outputFormat?: Prisma.SortOrder
   modelUsed?: Prisma.SortOrder
   tokenCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -440,8 +435,7 @@ export type GenerationMinOrderByAggregateInput = {
   projectId?: Prisma.SortOrder
   promptId?: Prisma.SortOrder
   type?: Prisma.SortOrder
-  inputContext?: Prisma.SortOrder
-  output?: Prisma.SortOrder
+  outputFormat?: Prisma.SortOrder
   modelUsed?: Prisma.SortOrder
   tokenCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -539,6 +533,10 @@ export type EnumGenerationTypeFieldUpdateOperationsInput = {
   set?: $Enums.GenerationType
 }
 
+export type EnumOutputFormatFieldUpdateOperationsInput = {
+  set?: $Enums.OutputFormat
+}
+
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -550,8 +548,8 @@ export type NullableIntFieldUpdateOperationsInput = {
 export type GenerationCreateWithoutProjectInput = {
   id?: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -562,8 +560,8 @@ export type GenerationUncheckedCreateWithoutProjectInput = {
   id?: string
   promptId: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -603,8 +601,8 @@ export type GenerationScalarWhereInput = {
   projectId?: Prisma.StringFilter<"Generation"> | string
   promptId?: Prisma.StringFilter<"Generation"> | string
   type?: Prisma.EnumGenerationTypeFilter<"Generation"> | $Enums.GenerationType
-  inputContext?: Prisma.StringNullableFilter<"Generation"> | string | null
-  output?: Prisma.StringFilter<"Generation"> | string
+  outputFormat?: Prisma.EnumOutputFormatFilter<"Generation"> | $Enums.OutputFormat
+  output?: Prisma.JsonFilter<"Generation">
   modelUsed?: Prisma.StringFilter<"Generation"> | string
   tokenCount?: Prisma.IntNullableFilter<"Generation"> | number | null
   createdAt?: Prisma.DateTimeFilter<"Generation"> | Date | string
@@ -613,8 +611,8 @@ export type GenerationScalarWhereInput = {
 export type GenerationCreateWithoutPromptInput = {
   id?: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -625,8 +623,8 @@ export type GenerationUncheckedCreateWithoutPromptInput = {
   id?: string
   projectId: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -662,8 +660,8 @@ export type GenerationCreateManyProjectInput = {
   id?: string
   promptId: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -672,8 +670,8 @@ export type GenerationCreateManyProjectInput = {
 export type GenerationUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -684,8 +682,8 @@ export type GenerationUncheckedUpdateWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   promptId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -695,8 +693,8 @@ export type GenerationUncheckedUpdateManyWithoutProjectInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   promptId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -706,8 +704,8 @@ export type GenerationCreateManyPromptInput = {
   id?: string
   projectId: string
   type: $Enums.GenerationType
-  inputContext?: string | null
-  output: string
+  outputFormat: $Enums.OutputFormat
+  output: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed: string
   tokenCount?: number | null
   createdAt?: Date | string
@@ -716,8 +714,8 @@ export type GenerationCreateManyPromptInput = {
 export type GenerationUpdateWithoutPromptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -728,8 +726,8 @@ export type GenerationUncheckedUpdateWithoutPromptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -739,8 +737,8 @@ export type GenerationUncheckedUpdateManyWithoutPromptInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumGenerationTypeFieldUpdateOperationsInput | $Enums.GenerationType
-  inputContext?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  output?: Prisma.StringFieldUpdateOperationsInput | string
+  outputFormat?: Prisma.EnumOutputFormatFieldUpdateOperationsInput | $Enums.OutputFormat
+  output?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   modelUsed?: Prisma.StringFieldUpdateOperationsInput | string
   tokenCount?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -753,7 +751,7 @@ export type GenerationSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   projectId?: boolean
   promptId?: boolean
   type?: boolean
-  inputContext?: boolean
+  outputFormat?: boolean
   output?: boolean
   modelUsed?: boolean
   tokenCount?: boolean
@@ -767,7 +765,7 @@ export type GenerationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   projectId?: boolean
   promptId?: boolean
   type?: boolean
-  inputContext?: boolean
+  outputFormat?: boolean
   output?: boolean
   modelUsed?: boolean
   tokenCount?: boolean
@@ -781,7 +779,7 @@ export type GenerationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   projectId?: boolean
   promptId?: boolean
   type?: boolean
-  inputContext?: boolean
+  outputFormat?: boolean
   output?: boolean
   modelUsed?: boolean
   tokenCount?: boolean
@@ -795,14 +793,14 @@ export type GenerationSelectScalar = {
   projectId?: boolean
   promptId?: boolean
   type?: boolean
-  inputContext?: boolean
+  outputFormat?: boolean
   output?: boolean
   modelUsed?: boolean
   tokenCount?: boolean
   createdAt?: boolean
 }
 
-export type GenerationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "promptId" | "type" | "inputContext" | "output" | "modelUsed" | "tokenCount" | "createdAt", ExtArgs["result"]["generation"]>
+export type GenerationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "projectId" | "promptId" | "type" | "outputFormat" | "output" | "modelUsed" | "tokenCount" | "createdAt", ExtArgs["result"]["generation"]>
 export type GenerationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
   prompt?: boolean | Prisma.PromptDefaultArgs<ExtArgs>
@@ -827,8 +825,8 @@ export type $GenerationPayload<ExtArgs extends runtime.Types.Extensions.Internal
     projectId: string
     promptId: string
     type: $Enums.GenerationType
-    inputContext: string | null
-    output: string
+    outputFormat: $Enums.OutputFormat
+    output: runtime.JsonValue
     modelUsed: string
     tokenCount: number | null
     createdAt: Date
@@ -1261,8 +1259,8 @@ export interface GenerationFieldRefs {
   readonly projectId: Prisma.FieldRef<"Generation", 'String'>
   readonly promptId: Prisma.FieldRef<"Generation", 'String'>
   readonly type: Prisma.FieldRef<"Generation", 'GenerationType'>
-  readonly inputContext: Prisma.FieldRef<"Generation", 'String'>
-  readonly output: Prisma.FieldRef<"Generation", 'String'>
+  readonly outputFormat: Prisma.FieldRef<"Generation", 'OutputFormat'>
+  readonly output: Prisma.FieldRef<"Generation", 'Json'>
   readonly modelUsed: Prisma.FieldRef<"Generation", 'String'>
   readonly tokenCount: Prisma.FieldRef<"Generation", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Generation", 'DateTime'>

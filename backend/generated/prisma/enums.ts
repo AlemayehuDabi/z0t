@@ -56,3 +56,11 @@ export const StylingType = {
 } as const
 
 export type StylingType = (typeof StylingType)[keyof typeof StylingType]
+
+
+export const OutputFormat = {
+  TEXT: 'TEXT',
+  FILE_TREE: 'FILE_TREE'
+} as const
+
+export type OutputFormat = (typeof OutputFormat)[keyof typeof OutputFormat]

@@ -3,6 +3,7 @@ import { getGroqResponse } from '../../libs/groq';
 import { orderedPrompt } from '../../utlis/orderedPrompt';
 import { FileNode, GraphState } from '../graph';
 import { coderPromptGen } from '../prompts/coder.prompt';
+import { ProjectService } from '../../src/services/project.service';
 
 // extract the files in the `Record<string, FileNode>` format form the llm response
 export const parseLLMResponse = (text: string): Record<string, FileNode> => {
@@ -96,6 +97,13 @@ export const coderNode = async (state: GraphState) => {
 
   // 4. PERSISTENCE (Save the result)
   // TODO: Save the code changes to your database or file system
+  await ProjectService.saveInteraction({
+    projectId: state.project_id,
+    userContent: '',
+    aiOutput: extractedFiles,
+    type: 'CODE',
+    modelName: 'llama-3.3-70b-versatile',
+  });
 
   // return
   return { files: extractedFiles };

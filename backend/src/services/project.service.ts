@@ -5,6 +5,8 @@ import {
   EvolutionRequest,
 } from '../../../package/type';
 import { GenerationType } from '../../generated/prisma/enums';
+import { FileNode } from '../../ai/graph';
+import { Prisma } from '../../generated/prisma/client';
 
 export const ProjectService = {
   /**
@@ -76,25 +78,43 @@ export const ProjectService = {
   async saveInteraction(params: {
     projectId: string;
     userContent: string;
-    aiOutput: string;
+    aiOutput: string | Record<string, FileNode>;
     modelName: string;
     type: GenerationType;
+    tokenCount?: number;
   }) {
-    // 1. Save the User Prompt
+    const lastPrompt = await prisma.prompt.findFirst({
+      where: {
+        projectId: params.projectId,
+      },
+      orderBy: { order: 'desc' },
+      select: { order: true },
+    });
+
+    const order = (lastPrompt?.order ?? 0) + 1;
+
+    const outputFormat = typeof params.aiOutput;
+    // Wrap everything in output JSON
+    const outputData = {
+      type: outputFormat === 'string' ? 'TEXT' : 'FILE_TREE',
+      data: params.aiOutput,
+    } as Prisma.InputJsonValue;
+
     return await prisma.prompt.create({
       data: {
         projectId: params.projectId,
         role: 'USER',
         content: params.userContent,
-        order: 0, // You can calculate incrementing order here
+        order, // You can calculate incrementing order here
 
         generations: {
-          // optimized
           create: {
             projectId: params.projectId,
             type: params.type,
-            output: params.aiOutput,
+            output: outputData,
+            outputFormat: outputFormat == 'string' ? 'TEXT' : 'FILE_TREE',
             modelUsed: params.modelName,
+            tokenCount: params.tokenCount ?? null,
           },
         },
       },
