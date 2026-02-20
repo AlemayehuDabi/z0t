@@ -102,7 +102,7 @@ export async function createPrompt(c: Context) {
     );
 
     // console log the event stream
-    console.log({ eventStream });
+    console.log('This is the event stream: ', eventStream);
 
     for await (const event of eventStream) {
       const eventType = event.event;

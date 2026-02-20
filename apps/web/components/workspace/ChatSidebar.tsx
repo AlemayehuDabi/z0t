@@ -53,24 +53,6 @@ export function ChatSidebar() {
       throw new Error('Better auth error');
     }
 
-    // Simulate AI response
-    setTimeout(() => {
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: "I'll create that for you. Here's the component:",
-        code: `export function ${input.split(' ').slice(0, 2).join('')}() {
-  return (
-    <div className="p-4">
-      <h2>Generated Component</h2>
-    </div>
-  );
-}`,
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-    }, 2000);
-
     const bodyReq = {
       mode: 'GENESIS',
       prompt: input,
@@ -83,6 +65,7 @@ export function ChatSidebar() {
     };
 
     try {
+      setIsThinking(true);
       const res = await fetch('http://localhost:4000/api/generate', {
         method: 'POST',
         headers: {
@@ -103,7 +86,7 @@ export function ChatSidebar() {
 
       while (true) {
         const { value, done } = await reader.read();
-        if (done) return;
+        if (done) break;
 
         console.log('this is the value', value);
 
@@ -134,12 +117,13 @@ export function ChatSidebar() {
 
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
-    setIsThinking(true);
 
     setIsThinking(false);
   };
 
-  console.log('This is the code response: ', code);
+  useEffect(() => {
+    console.log('This is the code response: ', code);
+  }, [code]);
 
   return (
     <div className="flex flex-col h-full bg-sidebar">
