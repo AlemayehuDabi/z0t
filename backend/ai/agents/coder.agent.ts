@@ -1,43 +1,9 @@
-import * as path from 'path';
 import { getGroqResponse } from '../../libs/groq';
 import { orderedPrompt } from '../../utlis/orderedPrompt';
-import { FileNode, GraphState } from '../graph';
+import { GraphState } from '../graph';
 import { coderPromptGen } from '../prompts/coder.prompt';
 import { ProjectService } from '../../src/services/project.service';
-
-// extract the files in the `Record<string, FileNode>` format form the llm response
-export const parseLLMResponse = (text: string): Record<string, FileNode> => {
-  const files: Record<string, FileNode> = {}; // start empty
-
-  // Regex to match <file path="...">...</file>
-  // [^"]+ matches the path inside quotes
-  // [\s\S]*? matches everything inside (including newlines), non-greedy
-  const regex = /<file path="([^"]+)">([\s\S]*?)<\/file>/g;
-
-  let match;
-
-  while ((match = regex.exec(text)) !== null) {
-    const [_, rawPath, content] = match;
-
-    // remove uncessary symbols from the path
-    const normalized = path.normalize(rawPath);
-
-    // check if there is folder mis-match
-    if (path.isAbsolute(normalized) || normalized.includes('..')) {
-      console.warn(`Skipping unsafe path: ${rawPath}`);
-      continue;
-    }
-    // add the objects
-    files[normalized] = {
-      path: normalized,
-      content,
-      isBinary: false,
-      lastUpdated: Date.now(),
-    };
-  }
-
-  return files;
-};
+import { parseLLMResponse } from '../../utlis/parse-llm-response';
 
 export const coderNode = async (state: GraphState) => {
   console.log('--- CODER: Writing Files ---');
