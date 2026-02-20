@@ -1,4 +1,8 @@
 import { WebContainer } from '@webcontainer/api';
 
-// Call only once
-export const webcontainerInstance = await WebContainer.boot();
+let webcontainer: WebContainer;
+
+export async function bootContainer() {
+  webcontainer = await WebContainer.boot();
+  return webcontainer;
+}

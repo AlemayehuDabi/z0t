@@ -4,13 +4,7 @@ import { createPrompt } from '../services';
 const app = new Hono();
 
 const promptRoute = app.post('/', async (c) => {
-  const prompt = await createPrompt(c);
-
-  console.log();
-
-  return c.json({
-    message: 'Your app is on it way!',
-  });
+  return createPrompt(c); // streaming logic must live inside createPrompt
 });
 
 export default promptRoute;

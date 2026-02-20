@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Send, Sparkles, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { authClient } from '@/lib/auth-client';
+import { startProject } from '@/web_container/start-project';
 
 interface Message {
   id: string;
@@ -88,10 +89,12 @@ export function ChatSidebar() {
         const { value, done } = await reader.read();
         if (done) break;
 
-        console.log('this is the value', value);
+        console.log({ value });
 
         const chunk = decoder.decode(value);
         const lines = chunk.split('\n');
+
+        console.log({ lines });
 
         let currentEvent = '';
 
@@ -102,11 +105,19 @@ export function ChatSidebar() {
             const data = line.replace('data: ', '').trim();
             if (currentEvent === 'token') {
               setCode((prev) => prev + data);
+              setStatus('Generating code...');
             } else if (currentEvent === 'status') {
               setStatus(data);
             } else if (currentEvent === 'final_files') {
               const files = JSON.parse(data);
               console.log('FILES READY FOR WEBCONTAINER:', files);
+              // Convert the files object to a single string for the container
+              const combinedCode = Object.values(files)
+                .map((file: any) => file.content)
+                .join('\n\n');
+
+              setCode(combinedCode); // this triggers your useEffect
+              setStatus('Project ready'); // optional
             }
           }
         }
@@ -122,7 +133,10 @@ export function ChatSidebar() {
   };
 
   useEffect(() => {
-    console.log('This is the code response: ', code);
+    if (code) {
+      console.log({ code });
+      startProject(code);
+    }
   }, [code]);
 
   return (

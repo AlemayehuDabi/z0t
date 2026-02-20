@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Monitor, Smartphone, RefreshCw, Gauge } from "lucide-react";
-import { frameworkConfig } from "../landing/FrameworkIcon";
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Monitor, Smartphone, RefreshCw, Gauge } from 'lucide-react';
+import { frameworkConfig } from '../landing/FrameworkIcon';
 
-type Framework = "react" | "vue" | "svelte" | "solid" | "astro";
-type Device = "desktop" | "mobile";
+type Framework = 'react' | 'vue' | 'svelte' | 'solid' | 'astro';
+type Device = 'desktop' | 'mobile';
 
 interface PreviewConsoleProps {
   framework: Framework;
@@ -19,7 +19,7 @@ const speedScores: Record<Framework, number> = {
 };
 
 export function PreviewConsole({ framework }: PreviewConsoleProps) {
-  const [device, setDevice] = useState<Device>("desktop");
+  const [device, setDevice] = useState<Device>('desktop');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const config = frameworkConfig[framework];
   const speed = speedScores[framework];
@@ -42,7 +42,9 @@ export function PreviewConsole({ framework }: PreviewConsoleProps) {
           </div>
           <div className="flex-1 max-w-md">
             <div className="flex items-center gap-2 bg-secondary rounded-md px-3 py-1.5">
-              <span className="text-xs text-muted-foreground">localhost:3000</span>
+              <span className="text-xs text-muted-foreground">
+                localhost:3000
+              </span>
             </div>
           </div>
           <motion.button
@@ -58,17 +60,21 @@ export function PreviewConsole({ framework }: PreviewConsoleProps) {
         {/* Device Toggle */}
         <div className="flex items-center gap-1 ml-4">
           <button
-            onClick={() => setDevice("desktop")}
+            onClick={() => setDevice('desktop')}
             className={`p-1.5 rounded-md transition-colors ${
-              device === "desktop" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-secondary"
+              device === 'desktop'
+                ? 'bg-primary/10 text-primary'
+                : 'text-muted-foreground hover:bg-secondary'
             }`}
           >
             <Monitor className="w-4 h-4" />
           </button>
           <button
-            onClick={() => setDevice("mobile")}
+            onClick={() => setDevice('mobile')}
             className={`p-1.5 rounded-md transition-colors ${
-              device === "mobile" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-secondary"
+              device === 'mobile'
+                ? 'bg-primary/10 text-primary'
+                : 'text-muted-foreground hover:bg-secondary'
             }`}
           >
             <Smartphone className="w-4 h-4" />
@@ -86,20 +92,13 @@ export function PreviewConsole({ framework }: PreviewConsoleProps) {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
             className={`bg-background border border-border rounded-lg shadow-2xl ${
-              device === "desktop" ? "w-full h-full" : "w-80 h-full max-h-[500px]"
+              device === 'desktop' ? 'w-full h-full' : 'w-80 h-full max-h-125'
             }`}
           >
             {/* Sample App Content */}
-            <div className="p-6">
-              <div className="space-y-4">
-                <div className="h-8 w-48 bg-secondary rounded-md" />
-                <div className="h-4 w-full bg-secondary/50 rounded" />
-                <div className="h-4 w-3/4 bg-secondary/50 rounded" />
-                <div className="mt-6 grid grid-cols-2 gap-4">
-                  <div className="h-24 bg-secondary rounded-lg" />
-                  <div className="h-24 bg-secondary rounded-lg" />
-                </div>
-              </div>
+            {/* Live Preview */}
+            <div className="h-125 border mt-4">
+              <iframe id="preview" style={{ width: '100%', height: '100%' }} />
             </div>
           </motion.div>
         </AnimatePresence>
@@ -110,7 +109,9 @@ export function PreviewConsole({ framework }: PreviewConsoleProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Gauge className="w-4 h-4 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground">Performance Score</span>
+            <span className="text-xs text-muted-foreground">
+              Performance Score
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <div className="w-24 h-1.5 bg-secondary rounded-full overflow-hidden">
@@ -119,7 +120,7 @@ export function PreviewConsole({ framework }: PreviewConsoleProps) {
                 style={{ backgroundColor: config.color }}
                 initial={{ width: 0 }}
                 animate={{ width: `${speed}%` }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
               />
             </div>
             <motion.span
