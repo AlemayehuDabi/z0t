@@ -68,7 +68,7 @@ export const coderNode = async (state: GraphState) => {
     userContent: '',
     aiOutput: extractedFiles,
     type: 'CODE',
-    modelName: 'llama-3.3-70b-versatile',
+    modelName: 'qwen/qwen3-32b',
   });
 
   // return

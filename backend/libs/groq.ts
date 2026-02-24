@@ -10,7 +10,7 @@ type getGroqRespProps = {
 
 export async function getGroqResponse({
   userPrompt,
-  modelName = 'llama-3.3-70b-versatile', // Example model
+  modelName = 'qwen/qwen3-32b',
   systemMessage,
 }: getGroqRespProps): Promise<string> {
   try {

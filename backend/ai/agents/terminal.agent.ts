@@ -35,7 +35,7 @@ export const terminalNode = async (state: GraphState) => {
     projectId: state.project_id,
     userContent: state.user_prompt.join('\n'),
     aiOutput: response,
-    modelName: '',
+    modelName: 'qwen/qwen3-32b',
     type: 'TERMINAL',
   });
 

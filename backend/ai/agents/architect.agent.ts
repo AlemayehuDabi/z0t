@@ -32,7 +32,7 @@ export const architectNode = async (state: GraphState) => {
   const response = await getGroqResponse({
     userPrompt: `${state.user_prompt}`,
     systemMessage: prompt,
-    modelName: 'llama-3.3-70b-versatile', // this default but check if it need to change or remove it
+    modelName: 'qwen/qwen3-32b', // this default but check if it need to change or remove it
   });
 
   // 5. PERSISTENCE (Save the result)
@@ -42,7 +42,7 @@ export const architectNode = async (state: GraphState) => {
     userContent: '',
     aiOutput: response,
     type: 'ARCHITECTURE',
-    modelName: 'llama-3.3-70b-versatile',
+    modelName: 'qwen/qwen3-32b',
   });
 
   // console log the response
