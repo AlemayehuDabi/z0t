@@ -1,6 +1,6 @@
 import { GraphState } from '../graph';
 
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 1; // for dev only - prod 5
 const PASS_SCORE = 85;
 
 export const routeAfterReview = async (

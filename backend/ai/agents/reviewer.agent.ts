@@ -1,3 +1,4 @@
+import { getGeminiResponse } from '../../libs/gemini';
 import { getGroqResponse } from '../../libs/groq';
 import { GraphState, ReviewType } from '../graph';
 import { reviewerPromptGen } from '../prompts/reviewer.prompt';
@@ -20,8 +21,13 @@ export const reviewerNode = async (state: GraphState) => {
     terminal_output,
   );
 
-  // Call the AI
-  let raw = await getGroqResponse({
+  // Call the AI - groq
+  // let raw = await getGroqResponse({
+  //   userPrompt: state.user_prompt.join('\n'),
+  //   systemMessage: systemPrompt,
+  // });
+
+  let raw = await getGeminiResponse({
     userPrompt: state.user_prompt.join('\n'),
     systemMessage: systemPrompt,
   });

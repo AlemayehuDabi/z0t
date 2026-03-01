@@ -4,6 +4,7 @@ import { GraphState } from '../graph';
 import { coderPromptGen } from '../prompts/coder.prompt';
 import { ProjectService } from '../../src/services/project.service';
 import { parseLLMResponse } from '../../utlis/parse-llm-response';
+import { getGeminiResponse } from '../../libs/gemini';
 
 export const coderNode = async (state: GraphState) => {
   console.log('--- CODER: Writing Files ---');
@@ -42,9 +43,17 @@ export const coderNode = async (state: GraphState) => {
 
   let response: string;
   try {
-    response = await getGroqResponse({
+    // groq
+    // response = await getGroqResponse({
+    //   userPrompt: formatted_prompt,
+    //   systemMessage: system_prompt,
+    // });
+
+    // gemini
+    response = await getGeminiResponse({
       userPrompt: formatted_prompt,
       systemMessage: system_prompt,
+      modelName: 'gemini-2.5-flash',
     });
 
     // console.log('response from coding agent: ', response);
@@ -68,7 +77,7 @@ export const coderNode = async (state: GraphState) => {
     userContent: '',
     aiOutput: extractedFiles,
     type: 'CODE',
-    modelName: 'qwen/qwen3-32b',
+    modelName: 'gemini-2.5-flash',
   });
 
   // return

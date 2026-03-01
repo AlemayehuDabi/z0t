@@ -1,3 +1,4 @@
+import { getGeminiResponse } from '../../libs/gemini';
 import { getGroqResponse } from '../../libs/groq';
 import { ProjectService } from '../../src/services/project.service';
 import { orderedPrompt } from '../../utlis/orderedPrompt';
@@ -23,19 +24,26 @@ export const terminalNode = async (state: GraphState) => {
     logs,
   );
 
-  const response = await getGroqResponse({
+  // const response = await getGroqResponse({
+  //   userPrompt: formattedPrompt,
+  //   systemMessage,
+  // });
+
+  const response = await getGeminiResponse({
     userPrompt: formattedPrompt,
     systemMessage,
   });
 
   console.log('terminal response: ', response);
 
+  // db call if and only score is greater than 85 or iteration_count greater than 5
+
   // save in the db
   await ProjectService.saveInteraction({
     projectId: state.project_id,
     userContent: state.user_prompt.join('\n'),
     aiOutput: response,
-    modelName: 'qwen/qwen3-32b',
+    modelName: 'gemini-2.5-flash',
     type: 'TERMINAL',
   });
 

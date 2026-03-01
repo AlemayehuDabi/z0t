@@ -1,3 +1,4 @@
+import { getGeminiResponse } from '../../libs/gemini';
 import { getGroqResponse } from '../../libs/groq';
 import { ProjectService } from '../../src/services/project.service';
 import { orderedPrompt } from '../../utlis/orderedPrompt';
@@ -29,10 +30,17 @@ export const architectNode = async (state: GraphState) => {
   });
 
   // 4. aiOutput
-  const response = await getGroqResponse({
+  // const response = await getGroqResponse({
+  //   userPrompt: `${state.user_prompt}`,
+  //   systemMessage: prompt,
+  //   modelName: 'llama-3.1-8b-instant', // this default but check if it need to change or remove it
+  // });
+
+  // gemini
+  const response = await getGeminiResponse({
     userPrompt: `${state.user_prompt}`,
     systemMessage: prompt,
-    modelName: 'qwen/qwen3-32b', // this default but check if it need to change or remove it
+    modelName: 'gemini-2.5-flash',
   });
 
   // 5. PERSISTENCE (Save the result)
@@ -42,7 +50,7 @@ export const architectNode = async (state: GraphState) => {
     userContent: '',
     aiOutput: response,
     type: 'ARCHITECTURE',
-    modelName: 'qwen/qwen3-32b',
+    modelName: 'gemini-2.5-flash',
   });
 
   // console log the response
