@@ -1,11 +1,25 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+// base model
+let singlton: ChatGoogleGenerativeAI | null = null;
 
-type getGeminiRespProps = {
+const baseModel = (modelName: string) => {
+  if (!singlton) {
+    singlton = new ChatGoogleGenerativeAI({
+      model: modelName,
+      apiKey: process.env.GOOGLE_API_KEY,
+      streaming: true,
+      maxOutputTokens: 8192,
+    });
+  }
+  return singlton;
+};
+
+// the stream or invoke
+type GetGeminiRespProps = {
   userPrompt: string;
   modelName?: string;
   systemMessage: string;
@@ -13,23 +27,24 @@ type getGeminiRespProps = {
 
 export async function getGeminiResponse({
   userPrompt,
-  modelName = 'gemini-2.5-flash',
   systemMessage,
-}: getGeminiRespProps): Promise<string> {
+  modelName = 'gemini-2.5-flash',
+}: GetGeminiRespProps) {
   try {
-    const model = genAI.getGenerativeModel({
-      model: modelName,
-      systemInstruction: systemMessage,
-    });
+    // calling the class once
+    const model = baseModel(modelName);
 
-    // // response
-    const completion = await model.generateContent(userPrompt);
+    // response
+    const completion = await model.stream([
+      ['system', systemMessage],
+      ['human', userPrompt],
+    ]);
 
     // log to check
-    console.log({ completion });
+    console.log({ completion }, { typeForCompletion: typeof completion });
 
     // adjust later
-    return completion.response.text() || '';
+    return completion;
   } catch (error) {
     console.error('Error fetching Gemini response:', error);
     return "Sorry, I couldn't generate a response.";

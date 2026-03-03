@@ -102,14 +102,23 @@ export async function createPrompt(c: Context) {
     );
 
     // console log the event stream
-    console.log('This is the event stream: ', eventStream);
+    // console.log('This is the event stream: ', eventStream);
 
     for await (const event of eventStream) {
       const eventType = event.event;
 
+      // TEST: Send a heartbeat every second
+      const interval = setInterval(async () => {
+        await stream.writeSSE({ data: 'heartbeat', event: 'token' });
+      }, 1000);
+
       // 1. Capture Tokens (The "typing" animation)
       if (eventType === 'on_chat_model_stream') {
         const content = event.data.chunk.content;
+
+        console.log('////////////////////////////////////////////////////');
+        console.log({ content });
+
         if (content) {
           await stream.writeSSE({
             data: content,
@@ -130,6 +139,10 @@ export async function createPrompt(c: Context) {
       else if (eventType === 'on_chain_end' && event.name === 'LangGraph') {
         // This is the final state of the graph
         const finalOutput = event.data.output;
+
+        console.log('/////////////////////////////////////////////////////');
+        console.log({ finalOutput });
+
         await stream.writeSSE({
           data: JSON.stringify(finalOutput.files),
           event: 'final_files',
