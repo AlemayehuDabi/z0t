@@ -5,14 +5,13 @@ import {
   userPromptRequest,
 } from '../../../package/type';
 import { ProjectService } from './project.service';
-import { streamSSE } from 'hono/streaming';
-import { workflow } from '../../ai/graph';
+import { StreamEvents } from '../../libs/stream_events';
 
 export async function createPrompt(c: Context) {
   const requestPayload = await c.req.json<userPromptRequest>();
 
   // logging the data from the frontend
-  console.log('request payload: ', requestPayload);
+  // console.log('request payload: ', requestPayload);
 
   // use to verify user
   // const user = await c.get('user');
@@ -26,7 +25,7 @@ export async function createPrompt(c: Context) {
   let projectId = '';
   let frameWork: FrameworkType;
   let prompts = [];
-  let userId = requestPayload.userId;
+  const userId = requestPayload.userId;
   let styling: StylingType;
 
   // 2. CONTEXT AGGREGATION (The Performance Layer)
@@ -87,69 +86,13 @@ export async function createPrompt(c: Context) {
   const promptHistory = prompts.map((p) => p.content).reverse();
 
   // 3. MULTI-AGENT DISPATCH (The "Brain" Layer) - stream events
-  return streamSSE(c, async (stream) => {
-    // stream event input/option
-    const eventStream = workflow.streamEvents(
-      {
-        user_prompt: promptHistory,
-        project_id: projectId,
-        framework: frameWork,
-        styling: styling,
-        mode,
-        userId,
-      },
-      { version: 'v2' },
-    );
-
-    // console log the event stream
-    // console.log('This is the event stream: ', eventStream);
-
-    for await (const event of eventStream) {
-      const eventType = event.event;
-
-      // TEST: Send a heartbeat every second
-      const interval = setInterval(async () => {
-        await stream.writeSSE({ data: 'heartbeat', event: 'token' });
-      }, 1000);
-
-      // 1. Capture Tokens (The "typing" animation)
-      if (eventType === 'on_chat_model_stream') {
-        const content = event.data.chunk.content;
-
-        console.log('////////////////////////////////////////////////////');
-        console.log({ content });
-
-        if (content) {
-          await stream.writeSSE({
-            data: content,
-            event: 'token', // Frontend will listen for 'token'
-          });
-        }
-      }
-
-      // 2. Capture Node Start (Status updates)
-      else if (eventType === 'on_chain_start' && event.name === 'coder') {
-        await stream.writeSSE({
-          data: 'Agent is writing code...',
-          event: 'status',
-        });
-      }
-
-      // 3. Capture Final Result (The parsed files)
-      else if (eventType === 'on_chain_end' && event.name === 'LangGraph') {
-        // This is the final state of the graph
-        const finalOutput = event.data.output;
-
-        console.log('/////////////////////////////////////////////////////');
-        console.log({ finalOutput });
-
-        await stream.writeSSE({
-          data: JSON.stringify(finalOutput.files),
-          event: 'final_files',
-        });
-      }
-    }
-
-    await stream.writeSSE({ data: 'done', event: 'end' });
+  return StreamEvents({
+    c,
+    promptHistory,
+    projectId,
+    frameWork,
+    styling,
+    mode,
+    userId,
   });
 }
