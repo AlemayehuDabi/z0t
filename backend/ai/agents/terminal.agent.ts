@@ -36,17 +36,6 @@ export const terminalNode = async (state: GraphState) => {
 
   console.log('terminal response: ', response);
 
-  // db call if and only score is greater than 85 or iteration_count greater than 5
-
-  // save in the db
-  await ProjectService.saveInteraction({
-    projectId: state.project_id,
-    userContent: state.user_prompt.join('\n'),
-    aiOutput: response,
-    modelName: 'gemini-2.5-flash',
-    type: 'TERMINAL',
-  });
-
   // change this w/ a proper return
   return {
     terminal: response,

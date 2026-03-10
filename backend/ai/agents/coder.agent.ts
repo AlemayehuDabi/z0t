@@ -3,7 +3,6 @@ import { orderedPrompt } from '../../utlis/orderedPrompt';
 import { GraphState } from '../graph';
 import { coderPromptGen } from '../prompts/coder.prompt';
 import { ProjectService } from '../../src/services/project.service';
-import { parseLLMResponse } from '../../utlis/parse-llm-response';
 import { getGeminiResponse } from '../../libs/gemini';
 
 export const coderNode = async (state: GraphState) => {
@@ -41,7 +40,8 @@ export const coderNode = async (state: GraphState) => {
   // formatted prompt
   const formatted_prompt = orderedPrompt(user_prompt);
 
-  let response: string;
+  // response is not a string, but token
+  let response;
   try {
     // groq
     // response = await getGroqResponse({
@@ -63,23 +63,8 @@ export const coderNode = async (state: GraphState) => {
   }
 
   // log the response
-  // console.log('The response from the llm for coder node: ', response);
-
-  // use adaptor extract the files
-  const extractedFiles = parseLLMResponse(response);
-
-  console.log({ extractedFiles });
-
-  // 4. PERSISTENCE (Save the result)
-  // TODO: Save the code changes to your database or file system
-  await ProjectService.saveInteraction({
-    projectId: state.project_id,
-    userContent: '',
-    aiOutput: extractedFiles,
-    type: 'CODE',
-    modelName: 'gemini-2.5-flash',
-  });
+  console.log('The response from the llm for coder node: ', response);
 
   // return
-  return { files: extractedFiles };
+  return { files: response };
 };

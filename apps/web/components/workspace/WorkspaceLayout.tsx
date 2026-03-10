@@ -2,15 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Save,
-  Cloud,
-  Code2,
-  Rocket,
-  ChevronDown,
-  Terminal,
-  X,
-} from 'lucide-react';
+import { Cloud, Code2, Rocket, ChevronDown, Terminal, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FrameworkSelector } from './FrameworkSelector';
 import { PreviewConsole } from './PreviewConsole';

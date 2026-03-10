@@ -1,6 +1,5 @@
 import { getGeminiResponse } from '../../libs/gemini';
 import { getGroqResponse } from '../../libs/groq';
-import { ProjectService } from '../../src/services/project.service';
 import { orderedPrompt } from '../../utlis/orderedPrompt';
 import { GraphState } from '../graph';
 import { architectPromptGen } from '../prompts/architect.prompt';
@@ -40,16 +39,6 @@ export const architectNode = async (state: GraphState) => {
   const response = await getGeminiResponse({
     userPrompt: `${state.user_prompt}`,
     systemMessage: prompt,
-    modelName: 'gemini-2.5-flash',
-  });
-
-  // 5. PERSISTENCE (Save the result)
-  // TODO: Save the code changes to your database or file system
-  await ProjectService.saveInteraction({
-    projectId: state.project_id,
-    userContent: '',
-    aiOutput: response,
-    type: 'ARCHITECTURE',
     modelName: 'gemini-2.5-flash',
   });
 
